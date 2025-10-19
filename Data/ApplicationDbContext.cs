@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using CiberCheck.Models;
+using CiberCheck.Features.Attendance.Entities;
+using CiberCheck.Features.Courses.Entities;
+using CiberCheck.Features.Sections.Entities;
+using CiberCheck.Features.Sessions.Entities;
+using CiberCheck.Features.Users.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace CiberCheck.Data;
@@ -18,21 +22,7 @@ public partial class ApplicationDbContext : DbContext
 
     public virtual DbSet<Attendance> Attendances { get; set; }
 
-    public virtual DbSet<Categoria> Categorias { get; set; }
-
-    public virtual DbSet<Comentario> Comentarios { get; set; }
-
-    public virtual DbSet<Compra> Compras { get; set; }
-
-    public virtual DbSet<Comprador> Compradors { get; set; }
-
     public virtual DbSet<Course> Courses { get; set; }
-
-    public virtual DbSet<DetalleCompra> DetalleCompras { get; set; }
-
-    public virtual DbSet<Producto> Productos { get; set; }
-
-    public virtual DbSet<Rol> Rols { get; set; }
 
     public virtual DbSet<Section> Sections { get; set; }
 
@@ -40,13 +30,14 @@ public partial class ApplicationDbContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
-    public virtual DbSet<Usuario> Usuarios { get; set; }
-
-    public virtual DbSet<Vendedor> Vendedors { get; set; }
-
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=DESKTOP-6PV96U6;Database=CiberCheck;Trusted_Connection=True;TrustServerCertificate=True");
+    {
+        if (!optionsBuilder.IsConfigured)
+        {
+            // fallback (mejor desde env vars, no hardcode)
+            optionsBuilder.UseSqlServer(Environment.GetEnvironmentVariable("DefaultConnection"));
+        }
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -68,74 +59,6 @@ public partial class ApplicationDbContext : DbContext
                 .HasConstraintName("FK__Attendanc__Stude__02FC7413");
         });
 
-        modelBuilder.Entity<Categoria>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__Categori__3213E83F5D459529");
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Descripcion)
-                .HasMaxLength(200)
-                .IsUnicode(false)
-                .HasColumnName("descripcion");
-        });
-
-        modelBuilder.Entity<Comentario>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__Comentar__3214EC073AF9C1BB");
-
-            entity.ToTable("Comentario");
-
-            entity.Property(e => e.Fecha).HasDefaultValueSql("(getdate())");
-            entity.Property(e => e.Texto).HasColumnType("text");
-
-            entity.HasOne(d => d.IdProductoNavigation).WithMany(p => p.Comentarios)
-                .HasForeignKey(d => d.IdProducto)
-                .HasConstraintName("FK__Comentari__IdPro__534D60F1");
-
-            entity.HasOne(d => d.IdUsuarioNavigation).WithMany(p => p.Comentarios)
-                .HasForeignKey(d => d.IdUsuario)
-                .HasConstraintName("FK__Comentari__IdUsu__5441852A");
-        });
-
-        modelBuilder.Entity<Compra>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__Compra__3214EC072E498CCF");
-
-            entity.ToTable("Compra");
-
-            entity.Property(e => e.DireccionEnvio)
-                .HasMaxLength(150)
-                .IsUnicode(false);
-            entity.Property(e => e.Fecha).HasDefaultValueSql("(getdate())");
-            entity.Property(e => e.MetodoPago)
-                .HasMaxLength(50)
-                .IsUnicode(false);
-            entity.Property(e => e.Total).HasColumnType("decimal(10, 2)");
-
-            entity.HasOne(d => d.IdCompradorNavigation).WithMany(p => p.Compras)
-                .HasForeignKey(d => d.IdComprador)
-                .HasConstraintName("FK__Compra__IdCompra__4BAC3F29");
-        });
-
-        modelBuilder.Entity<Comprador>(entity =>
-        {
-            entity.HasKey(e => e.IdUsuario).HasName("PK__Comprado__5B65BF97A3347405");
-
-            entity.ToTable("Comprador");
-
-            entity.Property(e => e.IdUsuario).ValueGeneratedNever();
-            entity.Property(e => e.Direccion)
-                .HasMaxLength(150)
-                .IsUnicode(false);
-            entity.Property(e => e.Telefono)
-                .HasMaxLength(20)
-                .IsUnicode(false);
-
-            entity.HasOne(d => d.IdUsuarioNavigation).WithOne(p => p.Comprador)
-                .HasForeignKey<Comprador>(d => d.IdUsuario)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Comprador__IdUsu__403A8C7D");
-        });
 
         modelBuilder.Entity<Course>(entity =>
         {
@@ -147,58 +70,6 @@ public partial class ApplicationDbContext : DbContext
             entity.Property(e => e.Name).HasMaxLength(100);
         });
 
-        modelBuilder.Entity<DetalleCompra>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__DetalleC__3214EC07A5D19094");
-
-            entity.ToTable("DetalleCompra");
-
-            entity.HasOne(d => d.IdCompraNavigation).WithMany(p => p.DetalleCompras)
-                .HasForeignKey(d => d.IdCompra)
-                .HasConstraintName("FK__DetalleCo__IdCom__4E88ABD4");
-
-            entity.HasOne(d => d.IdProductoNavigation).WithMany(p => p.DetalleCompras)
-                .HasForeignKey(d => d.IdProducto)
-                .HasConstraintName("FK__DetalleCo__IdPro__4F7CD00D");
-        });
-
-        modelBuilder.Entity<Producto>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__Producto__3214EC07864DD011");
-
-            entity.ToTable("Producto");
-
-            entity.Property(e => e.Descripcion).HasColumnType("text");
-            entity.Property(e => e.FechaCreacion).HasDefaultValueSql("(getdate())");
-            entity.Property(e => e.IdCategoria).HasColumnName("idCategoria");
-            entity.Property(e => e.ImagenUrl)
-                .HasMaxLength(255)
-                .IsUnicode(false);
-            entity.Property(e => e.Nombre)
-                .HasMaxLength(100)
-                .IsUnicode(false);
-            entity.Property(e => e.Precio).HasColumnType("decimal(10, 2)");
-
-            entity.HasOne(d => d.IdCategoriaNavigation).WithMany(p => p.Productos)
-                .HasForeignKey(d => d.IdCategoria)
-                .HasConstraintName("FK__Producto__idCate__46E78A0C");
-
-            entity.HasOne(d => d.IdVendedorNavigation).WithMany(p => p.Productos)
-                .HasForeignKey(d => d.IdVendedor)
-                .HasConstraintName("FK__Producto__IdVend__47DBAE45");
-        });
-
-        modelBuilder.Entity<Rol>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__Rol__3214EC0744B83E87");
-
-            entity.ToTable("Rol");
-
-            entity.Property(e => e.Id).ValueGeneratedNever();
-            entity.Property(e => e.NombreRol)
-                .HasMaxLength(50)
-                .IsUnicode(false);
-        });
 
         modelBuilder.Entity<Section>(entity =>
         {
@@ -255,53 +126,6 @@ public partial class ApplicationDbContext : DbContext
                     });
         });
 
-        modelBuilder.Entity<Usuario>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__Usuario__3214EC0721A8BF39");
-
-            entity.ToTable("Usuario");
-
-            entity.HasIndex(e => e.Correo, "UQ__Usuario__60695A199E87B429").IsUnique();
-
-            entity.Property(e => e.Correo)
-                .HasMaxLength(100)
-                .IsUnicode(false);
-            entity.Property(e => e.FechaRegistro).HasDefaultValueSql("(getdate())");
-            entity.Property(e => e.Nombre)
-                .HasMaxLength(100)
-                .IsUnicode(false);
-            entity.Property(e => e.PasswordHash)
-                .HasMaxLength(255)
-                .IsUnicode(false);
-
-            entity.HasOne(d => d.Rol).WithMany(p => p.Usuarios)
-                .HasForeignKey(d => d.RolId)
-                .HasConstraintName("FK__Usuario__RolId__3A81B327");
-        });
-
-        modelBuilder.Entity<Vendedor>(entity =>
-        {
-            entity.HasKey(e => e.IdUsuario).HasName("PK__Vendedor__5B65BF97C5A4418E");
-
-            entity.ToTable("Vendedor");
-
-            entity.Property(e => e.IdUsuario).ValueGeneratedNever();
-            entity.Property(e => e.Direccion)
-                .HasMaxLength(150)
-                .IsUnicode(false);
-            entity.Property(e => e.Ruc)
-                .HasMaxLength(20)
-                .IsUnicode(false)
-                .HasColumnName("RUC");
-            entity.Property(e => e.Telefono)
-                .HasMaxLength(20)
-                .IsUnicode(false);
-
-            entity.HasOne(d => d.IdUsuarioNavigation).WithOne(p => p.Vendedor)
-                .HasForeignKey<Vendedor>(d => d.IdUsuario)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Vendedor__IdUsua__3D5E1FD2");
-        });
 
         OnModelCreatingPartial(modelBuilder);
     }
