@@ -11,5 +11,6 @@ namespace CiberCheck.Interfaces
         Task<User> CreateAsync(User entity);
         Task<bool> UpdateAsync(int id, User entity);
         Task<bool> DeleteAsync(int id);
+        Task<bool> EmailExistsAsync(string email);
     }
 }
