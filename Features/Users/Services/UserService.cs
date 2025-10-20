@@ -47,5 +47,8 @@ namespace CiberCheck.Services
             await _db.SaveChangesAsync();
             return true;
         }
+
+        public async Task<bool> EmailExistsAsync(string email)
+            => await _db.Users.AsNoTracking().AnyAsync(u => u.Email == email);
     }
 }
