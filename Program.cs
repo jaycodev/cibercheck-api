@@ -2,11 +2,9 @@ using CiberCheck.Data;
 using Microsoft.EntityFrameworkCore;
 using CiberCheck.Interfaces;
 using CiberCheck.Services;
-using AutoMapper;
 using CiberCheck.Features.Common.Mapping;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -14,9 +12,21 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Configuration
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
+    .AddJsonFile("appsettings.Local.json", optional: true, reloadOnChange: true)
+    .AddJsonFile("cloudinary.json", optional: true, reloadOnChange: true);
+
 //Agregamos DbContext
+var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL")
+    ?? builder.Configuration.GetConnectionString("DB");
+
+if (string.IsNullOrEmpty(connectionString))
+    throw new InvalidOperationException("Connection string 'DB' or environment variable 'DATABASE_URL' was not found.");
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(connectionString));
 
 // AutoMapper
 builder.Services.AddAutoMapper(typeof(MappingProfile));
