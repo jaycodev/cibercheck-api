@@ -14,6 +14,21 @@ namespace CiberCheck.Features.Courses.Dtos
         public string? Code { get; set; }
     }
 
+    [SwaggerSchema(Description = "Curso del profesor con sección")]
+    public class TeacherCourseDto
+    {
+        [SwaggerSchema(Description = "Identificador del curso")]
+        public int CourseId { get; set; }
+        [SwaggerSchema(Description = "Nombre del curso")]
+        public string Name { get; set; } = null!;
+        [SwaggerSchema(Description = "Código único del curso")]
+        public string? Code { get; set; }
+        [SwaggerSchema(Description = "Identificador de la sección")]
+        public int SectionId { get; set; }
+        [SwaggerSchema(Description = "Nombre de la sección")]
+        public string? Section { get; set; }
+    }
+
     [SwaggerSchema(Description = "Payload para crear un curso")]
     public class CreateCourseDto
     {

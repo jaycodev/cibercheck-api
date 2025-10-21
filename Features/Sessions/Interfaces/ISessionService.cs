@@ -11,5 +11,6 @@ namespace CiberCheck.Interfaces
         Task<Session> CreateAsync(Session entity);
         Task<bool> UpdateAsync(int id, Session entity);
         Task<bool> DeleteAsync(int id);
+        Task<List<Session>> GetSessionsByCourseSectionAsync(int courseId, int sectionId);
     }
 }
