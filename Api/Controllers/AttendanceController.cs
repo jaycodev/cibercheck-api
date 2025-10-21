@@ -11,7 +11,7 @@ namespace CiberCheck.Controllers
 {
     [ApiController]
     [ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/[controller]")]
+    [Route("api/v{version:apiVersion}/attendances")]
     public class AttendanceController : ControllerBase
     {
         private readonly IAttendanceService _service;

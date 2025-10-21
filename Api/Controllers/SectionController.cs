@@ -11,7 +11,7 @@ namespace CiberCheck.Controllers
 {
     [ApiController]
     [ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/[controller]")]
+    [Route("api/v{version:apiVersion}/sections")]
     public class SectionController : ControllerBase
     {
         private readonly ISectionService _service;
