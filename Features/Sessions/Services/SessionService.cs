@@ -1,9 +1,7 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using CiberCheck.Data;
-using CiberCheck.Interfaces;
 using CiberCheck.Features.Sessions.Entities;
+using CiberCheck.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace CiberCheck.Services
 {
@@ -46,6 +44,15 @@ namespace CiberCheck.Services
             _db.Sessions.Remove(entity);
             await _db.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<List<Session>> GetSessionsByCourseSectionAsync(int courseId, int sectionId)
+        {
+            return await _db.Sessions
+                .Include(s => s.Section)
+                .Where(s => s.Section.CourseId == courseId && s.SectionId == sectionId)
+                .AsNoTracking()
+                .ToListAsync();
         }
     }
 }

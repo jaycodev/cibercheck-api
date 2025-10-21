@@ -6,6 +6,7 @@ using AutoMapper;
 using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.Filters;
 using CiberCheck.Swagger.Examples;
+using System.Linq;
 
 namespace CiberCheck.Controllers
 {
@@ -30,6 +31,27 @@ namespace CiberCheck.Controllers
         {
             var items = await _service.GetAllAsync();
             return Ok(_mapper.Map<List<SessionDto>>(items));
+        }
+
+        [HttpGet("course/{courseId:int}/section/{sectionId:int}")]
+        [SwaggerOperation(Summary = "Listar sesiones por curso y sección", Description = "Obtiene todas las sesiones de una sección específica de un curso.")]
+        [SwaggerResponseExample(StatusCodes.Status200OK, typeof(CourseSessionDtoListExample))]
+        public async Task<ActionResult<IEnumerable<CourseSessionDto>>> GetSessionsByCourseSection(int courseId, int sectionId)
+        {
+            var sessions = await _service.GetSessionsByCourseSectionAsync(courseId, sectionId);
+
+            var result = sessions.Select(s => new CourseSessionDto
+            {
+                SessionId = s.SessionId,
+                CourseId = s.Section.CourseId,
+                SectionId = s.SectionId,
+                Date = s.Date,
+                StartTime = s.StartTime,
+                EndTime = s.EndTime,
+                Topic = s.Topic
+            }).ToList();
+
+            return Ok(result);
         }
 
         [HttpGet("{id:int}")]

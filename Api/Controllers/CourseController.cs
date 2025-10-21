@@ -6,6 +6,7 @@ using AutoMapper;
 using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.Filters;
 using CiberCheck.Swagger.Examples;
+using System.Linq;
 
 namespace CiberCheck.Controllers
 {
@@ -30,6 +31,29 @@ namespace CiberCheck.Controllers
         {
             var items = await _service.GetAllAsync();
             return Ok(_mapper.Map<List<CourseDto>>(items));
+        }
+
+        [HttpGet("teacher/{teacherId:int}")]
+        [SwaggerOperation(Summary = "Listar cursos del profesor", Description = "Obtiene todos los cursos de un profesor con sus secciones.")]
+        [SwaggerResponseExample(StatusCodes.Status200OK, typeof(TeacherCourseDtoListExample))]
+        public async Task<ActionResult<IEnumerable<TeacherCourseDto>>> GetCoursesByTeacher(int teacherId)
+        {
+            var courses = await _service.GetCoursesByTeacherIdAsync(teacherId);
+
+            var result = courses
+                .SelectMany(c => c.Sections
+                    .Where(s => s.TeacherId == teacherId)
+                    .Select(s => new TeacherCourseDto
+                    {
+                        CourseId = c.CourseId,
+                        Name = c.Name,
+                        Code = c.Code,
+                        SectionId = s.SectionId,
+                        Section = s.Name
+                    }))
+                .ToList();
+
+            return Ok(result);
         }
 
         [HttpGet("{id:int}")]

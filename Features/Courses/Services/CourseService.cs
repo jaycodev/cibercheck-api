@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using CiberCheck.Data;
 using CiberCheck.Interfaces;
 using CiberCheck.Features.Courses.Entities;
+using System.Linq;
 
 namespace CiberCheck.Services
 {
@@ -46,6 +47,15 @@ namespace CiberCheck.Services
             _db.Courses.Remove(entity);
             await _db.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<List<Course>> GetCoursesByTeacherIdAsync(int teacherId)
+        {
+            return await _db.Courses
+                .Include(c => c.Sections)
+                .Where(c => c.Sections.Any(s => s.TeacherId == teacherId))
+                .AsNoTracking()
+                .ToListAsync();
         }
     }
 }
