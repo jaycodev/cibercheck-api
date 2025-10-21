@@ -11,7 +11,7 @@ namespace CiberCheck.Controllers
 {
     [ApiController]
     [ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/[controller]")]
+    [Route("api/v{version:apiVersion}/sessions")]
     public class SessionController : ControllerBase
     {
         private readonly ISessionService _service;

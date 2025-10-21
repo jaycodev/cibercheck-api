@@ -12,7 +12,7 @@ namespace CiberCheck.Controllers
 {
     [ApiController]
     [ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/[controller]")]
+    [Route("api/v{version:apiVersion}/users")]
     public class UserController : ControllerBase
     {
         private readonly IUserService _service;
