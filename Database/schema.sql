@@ -8,7 +8,7 @@ CREATE TABLE Users (
     UserId INT IDENTITY(1,1) PRIMARY KEY,
     FullName NVARCHAR(100) NOT NULL,
     Email NVARCHAR(100) NOT NULL UNIQUE,
-    Role NVARCHAR(20) NOT NULL CHECK (Role IN ('teacher', 'student')),
+    Role NVARCHAR(20) NOT NULL CHECK (Role IN ('profesor', 'estudiante')),
     PasswordHash NVARCHAR(255) NOT NULL
 );
 GO
@@ -53,7 +53,7 @@ GO
 CREATE TABLE Attendance (
     StudentId INT NOT NULL,
     SessionId INT NOT NULL,
-    Status NVARCHAR(20) NOT NULL CHECK (Status IN ('present','absent','late','excused')),
+    Status NVARCHAR(20) NOT NULL CHECK (Status IN ('presente','ausente','tarde','justificado')),
     Notes NVARCHAR(MAX),
     PRIMARY KEY (StudentId, SessionId),
     FOREIGN KEY (StudentId) REFERENCES Users(UserId) ON DELETE NO ACTION,
