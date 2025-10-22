@@ -43,6 +43,7 @@ builder.Services.AddScoped<ISectionService, SectionService>();
 builder.Services.AddScoped<ISessionService, SessionService>();
 builder.Services.AddScoped<IAttendanceService, AttendanceService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<CiberCheck.Features.Users.Security.JwtService>();
 
 // JWT Authentication
 var jwtSecret = builder.Configuration["Jwt:Secret"] ?? throw new InvalidOperationException("JWT Secret not configured");

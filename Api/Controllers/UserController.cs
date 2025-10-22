@@ -17,11 +17,42 @@ namespace CiberCheck.Controllers
     {
         private readonly IUserService _service;
         private readonly IMapper _mapper;
+        private readonly JwtService _jwtService;
 
-        public UserController(IUserService service, IMapper mapper)
+        public UserController(IUserService service, IMapper mapper, JwtService jwtService)
         {
             _service = service;
             _mapper = mapper;
+            _jwtService = jwtService;
+        }
+
+        [HttpPost("login")]
+        [SwaggerOperation(Summary = "Iniciar sesión", Description = "Autentica un usuario y retorna un token JWT.")]
+        [SwaggerRequestExample(typeof(LoginDto), typeof(LoginDtoExample))]
+        [SwaggerResponseExample(StatusCodes.Status200OK, typeof(LoginResponseDtoExample))]
+        [ProducesResponseType(typeof(LoginResponseDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<LoginResponseDto>> Login([FromBody] LoginDto dto)
+        {
+            var user = await _service.GetByEmailAsync(dto.Email);
+            if (user == null || !PasswordHasher.Verify(dto.Password, user.PasswordHash))
+            {
+                return Unauthorized(new ProblemDetails
+                {
+                    Title = "Credenciales inválidas",
+                    Detail = "El email o la contraseña son incorrectos.",
+                    Status = StatusCodes.Status401Unauthorized
+                });
+            }
+
+            var token = _jwtService.GenerateToken(user);
+            var userDto = _mapper.Map<UserDto>(user);
+
+            return Ok(new LoginResponseDto
+            {
+                Token = token,
+                User = userDto
+            });
         }
 
         [HttpGet]
