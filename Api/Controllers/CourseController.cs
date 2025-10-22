@@ -36,25 +36,22 @@ namespace CiberCheck.Controllers
         }
 
         [HttpGet("teacher/{teacherId:int}")]
-        [SwaggerOperation(Summary = "Listar cursos del profesor", Description = "Obtiene todos los cursos de un profesor con sus secciones.")]
+        [SwaggerOperation(Summary = "Listar cursos del profesor", Description = "Obtiene todos los cursos de un profesor agrupados por curso.")]
         [SwaggerResponseExample(StatusCodes.Status200OK, typeof(TeacherCourseDtoListExample))]
         public async Task<ActionResult<IEnumerable<TeacherCourseDto>>> GetCoursesByTeacher(int teacherId)
         {
             var courses = await _service.GetCoursesByTeacherIdAsync(teacherId);
 
             var result = courses
-                .SelectMany(c => c.Sections
-                    .Where(s => s.TeacherId == teacherId)
-                    .Select(s => new TeacherCourseDto
-                    {
-                        CourseId = c.CourseId,
-                        Name = c.Name,
-                        Code = c.Code,
-                        Slug = c.Slug,
-                        SectionId = s.SectionId,
-                        Section = s.Name,
-                        SectionSlug = s.Slug
-                    }))
+                .Where(c => c.Sections.Any(s => s.TeacherId == teacherId))
+                .Select(c => new TeacherCourseDto
+                {
+                    Name = c.Name,
+                    Code = c.Code,
+                    CourseSlug = c.Slug,
+                    Color = c.Color,
+                    TotalSections = c.Sections.Count(s => s.TeacherId == teacherId)
+                })
                 .ToList();
 
             return Ok(result);

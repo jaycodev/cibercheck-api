@@ -44,4 +44,24 @@ namespace CiberCheck.Swagger.Examples
             new() { SectionId = 2, CourseId = 1, TeacherId = 1, Name = "Sección B", Slug = "seccion-b" }
         };
     }
+
+    public class SectionStatsDtoExample : IExamplesProvider<SectionStatsDto>
+    {
+        public SectionStatsDto GetExamples() => new()
+        {
+            SectionSlug = "seccion-a",
+            SectionName = "Sección A",
+            TotalSessions = 3,
+            TotalStudents = 6
+        };
+    }
+
+    public class SectionStatsDtoListExample : IExamplesProvider<IEnumerable<SectionStatsDto>>
+    {
+        public IEnumerable<SectionStatsDto> GetExamples() => new List<SectionStatsDto>
+        {
+            new() { SectionSlug = "seccion-a", SectionName = "Sección A", TotalSessions = 3, TotalStudents = 6 },
+            new() { SectionSlug = "seccion-b", SectionName = "Sección B", TotalSessions = 2, TotalStudents = 6 }
+        };
+    }
 }

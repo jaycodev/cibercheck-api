@@ -14,25 +14,23 @@ namespace CiberCheck.Features.Courses.Dtos
         public string Code { get; set; } = null!;
         [SwaggerSchema(Description = "Slug único del curso para URLs amigables")]
         public string Slug { get; set; } = null!;
+        [SwaggerSchema(Description = "Color del curso en formato hex")]
+        public string Color { get; set; } = null!;
     }
 
-    [SwaggerSchema(Description = "Curso del profesor con sección")]
+    [SwaggerSchema(Description = "Curso del profesor con total de secciones")]
     public class TeacherCourseDto
     {
-        [SwaggerSchema(Description = "Identificador del curso")]
-        public int CourseId { get; set; }
         [SwaggerSchema(Description = "Nombre del curso")]
         public string Name { get; set; } = null!;
         [SwaggerSchema(Description = "Código único del curso")]
         public string Code { get; set; } = null!;
-        [SwaggerSchema(Description = "Slug del curso")]
-        public string Slug { get; set; } = null!;
-        [SwaggerSchema(Description = "Identificador de la sección")]
-        public int SectionId { get; set; }
-        [SwaggerSchema(Description = "Nombre de la sección")]
-        public string Section { get; set; } = null!;
-        [SwaggerSchema(Description = "Slug de la sección")]
-        public string SectionSlug { get; set; } = null!;
+        [SwaggerSchema(Description = "Slug del curso para URLs amigables")]
+        public string CourseSlug { get; set; } = null!;
+        [SwaggerSchema(Description = "Color del curso en formato hex")]
+        public string Color { get; set; } = null!;
+        [SwaggerSchema(Description = "Total de secciones del curso")]
+        public int TotalSections { get; set; }
     }
 
     [SwaggerSchema(Description = "Payload para crear un curso")]
@@ -46,6 +44,10 @@ namespace CiberCheck.Features.Courses.Dtos
         [MaxLength(20)]
         [SwaggerSchema(Description = "Código único del curso")]
         public string Code { get; set; } = null!;
+        [Required]
+        [RegularExpression(@"^#[0-9A-Fa-f]{6}$", ErrorMessage = "El color debe ser un código hex válido")]
+        [SwaggerSchema(Description = "Color del curso en formato hex (ej: #dc2626)")]
+        public string Color { get; set; } = null!;
     }
 
     [SwaggerSchema(Description = "Payload para actualizar un curso")]
@@ -59,5 +61,9 @@ namespace CiberCheck.Features.Courses.Dtos
         [MaxLength(20)]
         [SwaggerSchema(Description = "Código único del curso")]
         public string Code { get; set; } = null!;
+        [Required]
+        [RegularExpression(@"^#[0-9A-Fa-f]{6}$", ErrorMessage = "El color debe ser un código hex válido")]
+        [SwaggerSchema(Description = "Color del curso en formato hex (ej: #dc2626)")]
+        public string Color { get; set; } = null!;
     }
 }

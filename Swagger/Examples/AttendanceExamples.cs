@@ -44,4 +44,25 @@ namespace CiberCheck.Swagger.Examples
             new() { StudentId = 7, SessionId = 1, Status = "tarde", Notes = "Tráfico" }
         };
     }
+
+    public class SessionAttendanceDtoExample : IExamplesProvider<SessionAttendanceDto>
+    {
+        public SessionAttendanceDto GetExamples() => new()
+        {
+            CourseSlug = "desarrollo-de-aplicaciones-moviles-i",
+            CourseName = "Desarrollo de Aplicaciones Móviles I",
+            CourseCode = "DAM-I",
+            SectionSlug = "seccion-a",
+            SectionName = "Sección A",
+            Students = new List<StudentAttendanceDto>
+            {
+                new() { StudentId = 5, FirstName = "Ana", LastName = "López", Email = "i202507323@cibertec.edu.pe", Status = "presente", Notes = null },
+                new() { StudentId = 6, FirstName = "Luis", LastName = "Martínez", Email = "i202507324@cibertec.edu.pe", Status = "ausente", Notes = "Enfermo" },
+                new() { StudentId = 7, FirstName = "Carmen", LastName = "Sánchez", Email = "i202507325@cibertec.edu.pe", Status = "tarde", Notes = "Tráfico" },
+                new() { StudentId = 8, FirstName = "Miguel", LastName = "Torres", Email = "i202507326@cibertec.edu.pe", Status = "presente", Notes = null },
+                new() { StudentId = 9, FirstName = "Laura", LastName = "Ramírez", Email = "i202507327@cibertec.edu.pe", Status = "presente", Notes = null },
+                new() { StudentId = 10, FirstName = "Pedro", LastName = "Flores", Email = "i202507328@cibertec.edu.pe", Status = "justificado", Notes = "Trámite personal" }
+            }
+        };
+    }
 }

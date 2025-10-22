@@ -15,5 +15,7 @@ public partial class Course
 
     public string Slug { get; set; } = null!;
 
+    public string Color { get; set; } = null!;
+
     public virtual ICollection<Section> Sections { get; set; } = new List<Section>();
 }
