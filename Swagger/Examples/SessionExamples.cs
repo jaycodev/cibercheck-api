@@ -58,7 +58,8 @@ namespace CiberCheck.Swagger.Examples
         {
             new
             {
-                sessionId = 1,
+                courseSlug = "desarrollo-de-aplicaciones-moviles-i",
+                sectionSlug = "seccion-a",
                 sessionNumber = 1,
                 date = "2025-10-14",
                 startTime = "08:00:00",
@@ -66,15 +67,16 @@ namespace CiberCheck.Swagger.Examples
                 topic = "Introducción a Android Studio",
                 attendanceStats = new
                 {
-                    presente = 4,
+                    presente = 3,
                     ausente = 1,
                     tarde = 1,
-                    justificado = 0
+                    justificado = 1
                 }
             },
             new
             {
-                sessionId = 2,
+                courseSlug = "desarrollo-de-aplicaciones-moviles-i",
+                sectionSlug = "seccion-a",
                 sessionNumber = 2,
                 date = "2025-10-21",
                 startTime = "08:00:00",

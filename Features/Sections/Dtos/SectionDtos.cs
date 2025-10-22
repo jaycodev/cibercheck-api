@@ -37,4 +37,17 @@ namespace CiberCheck.Features.Sections.Dtos
         [MaxLength(50)]
         public string Name { get; set; } = null!;
     }
+
+    [SwaggerSchema(Description = "Sección de un curso con estadísticas")]
+    public class SectionStatsDto
+    {
+        [SwaggerSchema(Description = "Slug único de la sección")]
+        public string SectionSlug { get; set; } = null!;
+        [SwaggerSchema(Description = "Nombre de la sección")]
+        public string SectionName { get; set; } = null!;
+        [SwaggerSchema(Description = "Total de sesiones en la sección")]
+        public int TotalSessions { get; set; }
+        [SwaggerSchema(Description = "Total de estudiantes en la sección")]
+        public int TotalStudents { get; set; }
+    }
 }

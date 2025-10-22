@@ -24,15 +24,15 @@ INSERT INTO Users (FirstName, LastName, Email, Role, PasswordHash) VALUES
 ('Mateo', 'Jiménez', 'i202507338@cibertec.edu.pe', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'); -- Password: estudiante123
 GO
 
-INSERT INTO Courses (Name, Code, Slug) VALUES
-('Desarrollo de Aplicaciones Móviles I', 'DAM-I', 'desarrollo-de-aplicaciones-moviles-i'),
-('Seguridad de Aplicaciones', 'SEG-APP', 'seguridad-de-aplicaciones'),
-('Experiencias Formativas en Situaciones Reales de Trabajo IV', 'EFSRT-IV', 'experiencias-formativas-en-situaciones-reales-de-trabajo-iv'),
-('Lenguaje de Programación II', 'LP-II', 'lenguaje-de-programacion-ii'),
-('Desarrollo de Servicios Web I', 'DSW-I', 'desarrollo-de-servicios-web-i'),
-('Desarrollo de Aplicaciones Web I', 'DAW-I', 'desarrollo-de-aplicaciones-web-i'),
-('Base de Datos Avanzado I', 'BDA-I', 'base-de-datos-avanzado-i'),
-('Análisis y Diseño de Sistemas I', 'ADS-I', 'analisis-y-diseno-de-sistemas-i');
+INSERT INTO Courses (Name, Code, Slug, Color) VALUES
+('Desarrollo de Aplicaciones Móviles I', 'DAM-I', 'desarrollo-de-aplicaciones-moviles-i', '#dc2626'),
+('Seguridad de Aplicaciones', 'SEG-APP', 'seguridad-de-aplicaciones', '#2563eb'),
+('Experiencias Formativas en Situaciones Reales de Trabajo IV', 'EFSRT-IV', 'experiencias-formativas-en-situaciones-reales-de-trabajo-iv', '#0891b2'),
+('Lenguaje de Programación II', 'LP-II', 'lenguaje-de-programacion-ii', '#7c3aed'),
+('Desarrollo de Servicios Web I', 'DSW-I', 'desarrollo-de-servicios-web-i', '#059669'),
+('Desarrollo de Aplicaciones Web I', 'DAW-I', 'desarrollo-de-aplicaciones-web-i', '#ea580c'),
+('Base de Datos Avanzado I', 'BDA-I', 'base-de-datos-avanzado-i', '#ec4899'),
+('Análisis y Diseño de Sistemas I', 'ADS-I', 'analisis-y-diseno-de-sistemas-i', '#8b5cf6');
 GO
 
 INSERT INTO Sections (CourseId, TeacherId, Name, Slug) VALUES

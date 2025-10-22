@@ -71,7 +71,8 @@ namespace CiberCheck.Controllers
                     attendance => attendance.SessionId,
                     (session, attendances) => new
                     {
-                        sessionId = session.SessionId,
+                        courseSlug,
+                        sectionSlug,
                         sessionNumber = session.SessionNumber,
                         date = session.Date,
                         startTime = session.StartTime,

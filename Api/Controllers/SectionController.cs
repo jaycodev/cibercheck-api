@@ -15,11 +15,13 @@ namespace CiberCheck.Controllers
     public class SectionController : ControllerBase
     {
         private readonly ISectionService _service;
+        private readonly ICourseService _courseService;
         private readonly IMapper _mapper;
 
-        public SectionController(ISectionService service, IMapper mapper)
+        public SectionController(ISectionService service, ICourseService courseService, IMapper mapper)
         {
             _service = service;
+            _courseService = courseService;
             _mapper = mapper;
         }
 
@@ -31,6 +33,27 @@ namespace CiberCheck.Controllers
             var item = await _service.GetByIdAsync(id);
             if (item == null) return NotFound();
             return Ok(_mapper.Map<SectionDto>(item));
+        }
+
+        [HttpGet("course/{courseSlug}")]
+        [SwaggerOperation(Summary = "Listar secciones por slug de curso", Description = "Obtiene todas las secciones de un curso con estadísticas (sesiones y estudiantes).")]
+        [SwaggerResponseExample(StatusCodes.Status200OK, typeof(SectionStatsDtoListExample))]
+        public async Task<ActionResult<IEnumerable<SectionStatsDto>>> GetSectionsByCourseSlug(string courseSlug)
+        {
+            var course = await _courseService.GetBySlugAsync(courseSlug);
+            if (course == null) return NotFound(new { message = "Curso no encontrado" });
+
+            var sections = course.Sections
+                .Select(s => new SectionStatsDto
+                {
+                    SectionSlug = s.Slug,
+                    SectionName = s.Name,
+                    TotalSessions = s.Sessions.Count,
+                    TotalStudents = s.Students.Count
+                })
+                .ToList();
+
+            return Ok(sections);
         }
 
         [HttpPost]

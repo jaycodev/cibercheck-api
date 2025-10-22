@@ -44,7 +44,8 @@ namespace CiberCheck.Controllers
             Summary = "Ver asistencia de una sesión",
             Description = "Obtiene la lista de estudiantes de la sección con su asistencia para una sesión específica."
         )]
-        public async Task<ActionResult> GetSessionAttendance(string courseSlug, string sectionSlug, int sessionNumber)
+        [SwaggerResponseExample(StatusCodes.Status200OK, typeof(SessionAttendanceDtoExample))]
+        public async Task<ActionResult<SessionAttendanceDto>> GetSessionAttendance(string courseSlug, string sectionSlug, int sessionNumber)
         {
             var course = await _courseService.GetBySlugAsync(courseSlug);
             if (course == null) return NotFound(new { message = "Curso no encontrado" });
@@ -60,50 +61,36 @@ namespace CiberCheck.Controllers
 
             var studentsWithAttendance = await _db.Users
                 .Where(u => u.SectionsNavigation.Any(s => s.SectionId == section.SectionId))
-                .Select(student => new
+                .Select(student => new StudentAttendanceDto
                 {
-                    studentId = student.UserId,
-                    firstName = student.FirstName,
-                    lastName = student.LastName,
-                    email = student.Email,
-                    attendance = _db.Attendances
+                    StudentId = student.UserId,
+                    FirstName = student.FirstName,
+                    LastName = student.LastName,
+                    Email = student.Email,
+                    Status = _db.Attendances
                         .Where(a => a.StudentId == student.UserId && a.SessionId == session.SessionId)
-                        .Select(a => new
-                        {
-                            status = a.Status,
-                            notes = a.Notes
-                        })
+                        .Select(a => a.Status)
+                        .FirstOrDefault(),
+                    Notes = _db.Attendances
+                        .Where(a => a.StudentId == student.UserId && a.SessionId == session.SessionId)
+                        .Select(a => a.Notes)
                         .FirstOrDefault()
                 })
-                .OrderBy(s => s.lastName)
-                .ThenBy(s => s.firstName)
+                .OrderBy(s => s.LastName)
+                .ThenBy(s => s.FirstName)
                 .ToListAsync();
 
-            return Ok(new
+            var result = new SessionAttendanceDto
             {
-                course = new
-                {
-                    id = course.CourseId,
-                    name = course.Name,
-                    slug = course.Slug
-                },
-                section = new
-                {
-                    id = section.SectionId,
-                    name = section.Name,
-                    slug = section.Slug
-                },
-                session = new
-                {
-                    id = session.SessionId,
-                    sessionNumber = session.SessionNumber,
-                    date = session.Date,
-                    startTime = session.StartTime,
-                    endTime = session.EndTime,
-                    topic = session.Topic
-                },
-                students = studentsWithAttendance
-            });
+                CourseSlug = course.Slug,
+                CourseName = course.Name,
+                CourseCode = course.Code,
+                SectionSlug = section.Slug,
+                SectionName = section.Name,
+                Students = studentsWithAttendance
+            };
+
+            return Ok(result);
         }
 
         [HttpGet("{studentId:int}/{sessionId:int}")]
