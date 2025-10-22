@@ -4,25 +4,15 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace CiberCheck.Features.Sessions.Dtos
 {
+    [SwaggerSchema(Description = "Sesión de un curso")]
     public class SessionDto
-    {
-        public int SessionId { get; set; }
-        public int SectionId { get; set; }
-        public DateOnly Date { get; set; }
-        public TimeOnly? StartTime { get; set; }
-        public TimeOnly? EndTime { get; set; }
-        public string? Topic { get; set; }
-    }
-
-    [SwaggerSchema(Description = "Sesión de un curso con información completa")]
-    public class CourseSessionDto
     {
         [SwaggerSchema(Description = "Identificador de la sesión")]
         public int SessionId { get; set; }
-        [SwaggerSchema(Description = "Identificador del curso")]
-        public int CourseId { get; set; }
         [SwaggerSchema(Description = "Identificador de la sección")]
         public int SectionId { get; set; }
+        [SwaggerSchema(Description = "Número de la sesión dentro de la sección")]
+        public int SessionNumber { get; set; }
         [SwaggerSchema(Description = "Fecha de la sesión")]
         public DateOnly Date { get; set; }
         [SwaggerSchema(Description = "Hora de inicio")]
@@ -37,11 +27,19 @@ namespace CiberCheck.Features.Sessions.Dtos
     public class CreateSessionDto
     {
         [Required]
+        [SwaggerSchema(Description = "ID de la sección")]
         public int SectionId { get; set; }
         [Required]
+        [SwaggerSchema(Description = "Número de sesión (1, 2, 3...)")]
+        public int SessionNumber { get; set; }
+        [Required]
+        [SwaggerSchema(Description = "Fecha de la sesión")]
         public DateOnly Date { get; set; }
+        [SwaggerSchema(Description = "Hora de inicio (opcional)")]
         public TimeOnly? StartTime { get; set; }
+        [SwaggerSchema(Description = "Hora de fin (opcional)")]
         public TimeOnly? EndTime { get; set; }
+        [SwaggerSchema(Description = "Tema o título de la sesión")]
         public string? Topic { get; set; }
     }
 
@@ -49,9 +47,16 @@ namespace CiberCheck.Features.Sessions.Dtos
     public class UpdateSessionDto
     {
         [Required]
+        [SwaggerSchema(Description = "Número de sesión")]
+        public int SessionNumber { get; set; }
+        [Required]
+        [SwaggerSchema(Description = "Fecha de la sesión")]
         public DateOnly Date { get; set; }
+        [SwaggerSchema(Description = "Hora de inicio")]
         public TimeOnly? StartTime { get; set; }
+        [SwaggerSchema(Description = "Hora de fin")]
         public TimeOnly? EndTime { get; set; }
+        [SwaggerSchema(Description = "Tema o título de la sesión")]
         public string? Topic { get; set; }
     }
 }

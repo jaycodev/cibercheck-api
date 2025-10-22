@@ -13,6 +13,8 @@ public partial class Session
 
     public int SectionId { get; set; }
 
+    public int SessionNumber { get; set; }
+
     public DateOnly Date { get; set; }
 
     public TimeOnly? StartTime { get; set; }

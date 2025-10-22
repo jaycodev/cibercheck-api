@@ -2,10 +2,13 @@ using Microsoft.AspNetCore.Mvc;
 using CiberCheck.Interfaces;
 using CiberCheck.Features.Sessions.Entities;
 using CiberCheck.Features.Sessions.Dtos;
+using CiberCheck.Features.Common.Authorization;
 using AutoMapper;
 using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.Filters;
 using CiberCheck.Swagger.Examples;
+using Microsoft.EntityFrameworkCore;
+using CiberCheck.Data;
 using System.Linq;
 
 namespace CiberCheck.Controllers
@@ -16,52 +19,65 @@ namespace CiberCheck.Controllers
     public class SessionController : ControllerBase
     {
         private readonly ISessionService _service;
+        private readonly ICourseService _courseService;
+        private readonly ISectionService _sectionService;
+        private readonly ApplicationDbContext _db;
         private readonly IMapper _mapper;
 
-        public SessionController(ISessionService service, IMapper mapper)
+        public SessionController(
+            ISessionService service, 
+            ICourseService courseService,
+            ISectionService sectionService,
+            ApplicationDbContext db,
+            IMapper mapper)
         {
             _service = service;
+            _courseService = courseService;
+            _sectionService = sectionService;
+            _db = db;
             _mapper = mapper;
         }
 
-        [HttpGet]
-        [SwaggerOperation(Summary = "Listar sesiones", Description = "Obtiene todas las sesiones.")]
-        [SwaggerResponseExample(StatusCodes.Status200OK, typeof(SessionDtoListExample))]
-        public async Task<ActionResult<IEnumerable<SessionDto>>> GetAll()
-        {
-            var items = await _service.GetAllAsync();
-            return Ok(_mapper.Map<List<SessionDto>>(items));
-        }
-
-        [HttpGet("course/{courseId:int}/section/{sectionId:int}")]
-        [SwaggerOperation(Summary = "Listar sesiones por curso y sección", Description = "Obtiene todas las sesiones de una sección específica de un curso.")]
-        [SwaggerResponseExample(StatusCodes.Status200OK, typeof(CourseSessionDtoListExample))]
-        public async Task<ActionResult<IEnumerable<CourseSessionDto>>> GetSessionsByCourseSection(int courseId, int sectionId)
-        {
-            var sessions = await _service.GetSessionsByCourseSectionAsync(courseId, sectionId);
-
-            var result = sessions.Select(s => new CourseSessionDto
-            {
-                SessionId = s.SessionId,
-                CourseId = s.Section.CourseId,
-                SectionId = s.SectionId,
-                Date = s.Date,
-                StartTime = s.StartTime,
-                EndTime = s.EndTime,
-                Topic = s.Topic
-            }).ToList();
-
-            return Ok(result);
-        }
-
         [HttpGet("{id:int}")]
-        [SwaggerOperation(Summary = "Obtener sesión por Id", Description = "Retorna una sesión por su identificador.")]
+        [SwaggerOperation(Summary = "Obtener sesión por Id", Description = "Retorna una sesión por su identificador (para CRUD).")]
         [SwaggerResponseExample(StatusCodes.Status200OK, typeof(SessionDtoExample))]
         public async Task<ActionResult<SessionDto>> GetById(int id)
         {
             var item = await _service.GetByIdAsync(id);
             if (item == null) return NotFound();
             return Ok(_mapper.Map<SessionDto>(item));
+        }
+
+        [HttpGet("course/{courseSlug}/section/{sectionSlug}")]
+        [RequireTeacher]
+        [SwaggerOperation(
+            Summary = "Listar sesiones por slugs", 
+            Description = "Obtiene todas las sesiones de una sección del profesor autenticado usando slugs."
+        )]
+        public async Task<ActionResult> GetSessionsBySlugs(string courseSlug, string sectionSlug)
+        {
+            var course = await _courseService.GetBySlugAsync(courseSlug);
+            if (course == null) return NotFound(new { message = "Curso no encontrado" });
+
+            var section = await _sectionService.GetBySlugAsync(course.CourseId, sectionSlug);
+            if (section == null) return NotFound(new { message = "Sección no encontrada" });
+
+            var sessions = await _db.Sessions
+                .Where(s => s.SectionId == section.SectionId)
+                .OrderBy(s => s.SessionNumber)
+                .AsNoTracking()
+                .Select(s => new
+                {
+                    sessionId = s.SessionId,
+                    sessionNumber = s.SessionNumber,
+                    date = s.Date,
+                    startTime = s.StartTime,
+                    endTime = s.EndTime,
+                    topic = s.Topic
+                })
+                .ToListAsync();
+
+            return Ok(sessions);
         }
 
         [HttpPost]

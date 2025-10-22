@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using CiberCheck.Data;
 using CiberCheck.Interfaces;
 using CiberCheck.Features.Courses.Entities;
+using CiberCheck.Features.Common.Helpers;
 using System.Linq;
 
 namespace CiberCheck.Services
@@ -23,8 +24,20 @@ namespace CiberCheck.Services
         public async Task<Course?> GetByIdAsync(int id)
             => await _db.Courses.FindAsync(id);
 
+        public async Task<Course?> GetBySlugAsync(string slug)
+            => await _db.Courses
+                .AsNoTracking()
+                .FirstOrDefaultAsync(c => c.Slug == slug);
+
         public async Task<Course> CreateAsync(Course entity)
         {
+            // Auto-generar slug desde el nombre
+            var existingSlugs = await _db.Courses
+                .Select(c => c.Slug)
+                .ToListAsync();
+            
+            entity.Slug = SlugGenerator.GenerateUniqueSlug(entity.Name, existingSlugs);
+            
             _db.Courses.Add(entity);
             await _db.SaveChangesAsync();
             return entity;
@@ -32,9 +45,26 @@ namespace CiberCheck.Services
 
         public async Task<bool> UpdateAsync(int id, Course entity)
         {
-            var exists = await _db.Courses.AnyAsync(e => e.CourseId == id);
-            if (!exists) return false;
+            var existing = await _db.Courses.FindAsync(id);
+            if (existing == null) return false;
+            
+            // Si el nombre cambió, regenerar slug
+            if (existing.Name != entity.Name)
+            {
+                var existingSlugs = await _db.Courses
+                    .Where(c => c.CourseId != id)
+                    .Select(c => c.Slug)
+                    .ToListAsync();
+                
+                entity.Slug = SlugGenerator.GenerateUniqueSlug(entity.Name, existingSlugs);
+            }
+            else
+            {
+                entity.Slug = existing.Slug;
+            }
+            
             entity.CourseId = id;
+            _db.Entry(existing).State = EntityState.Detached;
             _db.Entry(entity).State = EntityState.Modified;
             await _db.SaveChangesAsync();
             return true;

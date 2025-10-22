@@ -9,10 +9,11 @@ namespace CiberCheck.Swagger.Examples
         public CreateSessionDto GetExamples() => new()
         {
             SectionId = 1,
+            SessionNumber = 1,
             Date = new DateOnly(2025,10,16),
             StartTime = new TimeOnly(8,0),
             EndTime = new TimeOnly(10,0),
-            Topic = "Linear Equations"
+            Topic = "Introducción a la Programación"
         };
     }
 
@@ -20,10 +21,11 @@ namespace CiberCheck.Swagger.Examples
     {
         public UpdateSessionDto GetExamples() => new()
         {
+            SessionNumber = 1,
             Date = new DateOnly(2025,10,23),
             StartTime = new TimeOnly(8,0),
             EndTime = new TimeOnly(10,0),
-            Topic = "Quadratic Functions"
+            Topic = "Variables y Tipos de Datos"
         };
     }
 
@@ -33,10 +35,11 @@ namespace CiberCheck.Swagger.Examples
         {
             SessionId = 1,
             SectionId = 1,
+            SessionNumber = 1,
             Date = new DateOnly(2025,10,16),
             StartTime = new TimeOnly(8,0),
             EndTime = new TimeOnly(10,0),
-            Topic = "Linear Equations"
+            Topic = "Introducción a la Programación"
         };
     }
 
@@ -44,8 +47,8 @@ namespace CiberCheck.Swagger.Examples
     {
         public IEnumerable<SessionDto> GetExamples() => new List<SessionDto>
         {
-            new() { SessionId = 1, SectionId = 1, Date = new DateOnly(2025,10,16), StartTime = new TimeOnly(8,0), EndTime = new TimeOnly(10,0), Topic = "Linear Equations" },
-            new() { SessionId = 2, SectionId = 1, Date = new DateOnly(2025,10,23), StartTime = new TimeOnly(8,0), EndTime = new TimeOnly(10,0), Topic = "Quadratic Functions" }
+            new() { SessionId = 1, SectionId = 1, SessionNumber = 1, Date = new DateOnly(2025,10,16), StartTime = new TimeOnly(8,0), EndTime = new TimeOnly(10,0), Topic = "Introducción a la Programación" },
+            new() { SessionId = 2, SectionId = 1, SessionNumber = 2, Date = new DateOnly(2025,10,23), StartTime = new TimeOnly(8,0), EndTime = new TimeOnly(10,0), Topic = "Variables y Tipos de Datos" }
         };
     }
 }

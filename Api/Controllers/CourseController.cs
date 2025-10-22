@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using CiberCheck.Interfaces;
 using CiberCheck.Features.Courses.Entities;
 using CiberCheck.Features.Courses.Dtos;
+using CiberCheck.Features.Common.Authorization;
 using AutoMapper;
 using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.Filters;
@@ -48,8 +50,10 @@ namespace CiberCheck.Controllers
                         CourseId = c.CourseId,
                         Name = c.Name,
                         Code = c.Code,
+                        Slug = c.Slug,
                         SectionId = s.SectionId,
-                        Section = s.Name
+                        Section = s.Name,
+                        SectionSlug = s.Slug
                     }))
                 .ToList();
 
@@ -57,13 +61,46 @@ namespace CiberCheck.Controllers
         }
 
         [HttpGet("{id:int}")]
-        [SwaggerOperation(Summary = "Obtener curso por Id", Description = "Retorna un curso por su identificador.")]
+        [SwaggerOperation(Summary = "Obtener curso por Id", Description = "Retorna un curso por su identificador numérico.")]
         [SwaggerResponseExample(StatusCodes.Status200OK, typeof(CourseDtoExample))]
         public async Task<ActionResult<CourseDto>> GetById(int id)
         {
             var item = await _service.GetByIdAsync(id);
             if (item == null) return NotFound();
             return Ok(_mapper.Map<CourseDto>(item));
+        }
+
+        [HttpGet("{slug}")]
+        [SwaggerOperation(Summary = "Obtener curso por Slug", Description = "Retorna un curso por su slug URL-friendly (ej: introduccion-programacion).")]
+        [SwaggerResponseExample(StatusCodes.Status200OK, typeof(CourseDtoExample))]
+        public async Task<ActionResult<CourseDto>> GetBySlug(string slug)
+        {
+            var item = await _service.GetBySlugAsync(slug);
+            if (item == null) return NotFound();
+            return Ok(_mapper.Map<CourseDto>(item));
+        }
+
+        [HttpGet("{slug}/sections")]
+        [RequireTeacher]
+        [SwaggerOperation(Summary = "Listar secciones de un curso por slug", Description = "Obtiene todas las secciones de un curso del profesor autenticado.")]
+        public async Task<ActionResult<IEnumerable<CourseDto>>> GetCourseSections(string slug)
+        {
+            var course = await _service.GetBySlugAsync(slug);
+            if (course == null) return NotFound(new { message = "Curso no encontrado" });
+            
+            return Ok(new 
+            { 
+                courseId = course.CourseId,
+                courseName = course.Name,
+                courseSlug = course.Slug,
+                sections = course.Sections.Select(s => new 
+                {
+                    sectionId = s.SectionId,
+                    name = s.Name,
+                    slug = s.Slug,
+                    teacherId = s.TeacherId
+                })
+            });
         }
 
         [HttpPost]

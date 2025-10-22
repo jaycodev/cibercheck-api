@@ -1,11 +1,15 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using CiberCheck.Interfaces;
 using CiberCheck.Features.Attendance.Entities;
 using CiberCheck.Features.Attendance.Dtos;
+using CiberCheck.Features.Common.Authorization;
+using CiberCheck.Data;
 using AutoMapper;
 using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.Filters;
 using CiberCheck.Swagger.Examples;
+using System.Linq;
 
 namespace CiberCheck.Controllers
 {
@@ -15,21 +19,89 @@ namespace CiberCheck.Controllers
     public class AttendanceController : ControllerBase
     {
         private readonly IAttendanceService _service;
+        private readonly ICourseService _courseService;
+        private readonly ISectionService _sectionService;
+        private readonly ApplicationDbContext _db;
         private readonly IMapper _mapper;
 
-        public AttendanceController(IAttendanceService service, IMapper mapper)
+        public AttendanceController(
+            IAttendanceService service,
+            ICourseService courseService,
+            ISectionService sectionService,
+            ApplicationDbContext db,
+            IMapper mapper)
         {
             _service = service;
+            _courseService = courseService;
+            _sectionService = sectionService;
+            _db = db;
             _mapper = mapper;
         }
 
-        [HttpGet]
-        [SwaggerOperation(Summary = "Listar asistencias", Description = "Obtiene todas las asistencias.")]
-        [SwaggerResponseExample(StatusCodes.Status200OK, typeof(AttendanceDtoListExample))]
-        public async Task<ActionResult<IEnumerable<AttendanceDto>>> GetAll()
+        [HttpGet("course/{courseSlug}/section/{sectionSlug}/session/{sessionNumber:int}")]
+        [RequireTeacher]
+        [SwaggerOperation(
+            Summary = "Ver asistencia de una sesión",
+            Description = "Obtiene la lista de estudiantes de la sección con su asistencia para una sesión específica."
+        )]
+        public async Task<ActionResult> GetSessionAttendance(string courseSlug, string sectionSlug, int sessionNumber)
         {
-            var items = await _service.GetAllAsync();
-            return Ok(_mapper.Map<List<AttendanceDto>>(items));
+            var course = await _courseService.GetBySlugAsync(courseSlug);
+            if (course == null) return NotFound(new { message = "Curso no encontrado" });
+
+            var section = await _sectionService.GetBySlugAsync(course.CourseId, sectionSlug);
+            if (section == null) return NotFound(new { message = "Sección no encontrada" });
+
+            var session = await _db.Sessions
+                .AsNoTracking()
+                .FirstOrDefaultAsync(s => s.SectionId == section.SectionId && s.SessionNumber == sessionNumber);
+
+            if (session == null) return NotFound(new { message = "Sesión no encontrada" });
+
+            var studentsWithAttendance = await _db.Users
+                .Where(u => u.SectionsNavigation.Any(s => s.SectionId == section.SectionId))
+                .Select(student => new
+                {
+                    studentId = student.UserId,
+                    fullName = student.FullName,
+                    email = student.Email,
+                    attendance = _db.Attendances
+                        .Where(a => a.StudentId == student.UserId && a.SessionId == session.SessionId)
+                        .Select(a => new
+                        {
+                            status = a.Status,
+                            notes = a.Notes
+                        })
+                        .FirstOrDefault()
+                })
+                .OrderBy(s => s.fullName)
+                .ToListAsync();
+
+            return Ok(new
+            {
+                course = new
+                {
+                    id = course.CourseId,
+                    name = course.Name,
+                    slug = course.Slug
+                },
+                section = new
+                {
+                    id = section.SectionId,
+                    name = section.Name,
+                    slug = section.Slug
+                },
+                session = new
+                {
+                    id = session.SessionId,
+                    sessionNumber = session.SessionNumber,
+                    date = session.Date,
+                    startTime = session.StartTime,
+                    endTime = session.EndTime,
+                    topic = session.Topic
+                },
+                students = studentsWithAttendance
+            });
         }
 
         [HttpGet("{studentId:int}/{sessionId:int}")]

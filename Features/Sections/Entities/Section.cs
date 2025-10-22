@@ -15,7 +15,9 @@ public partial class Section
 
     public int TeacherId { get; set; }
 
-    public string? Name { get; set; }
+    public string Name { get; set; } = null!;
+
+    public string Slug { get; set; } = null!;
 
     public virtual Course Course { get; set; } = null!;
 
