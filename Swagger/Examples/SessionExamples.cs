@@ -51,4 +51,43 @@ namespace CiberCheck.Swagger.Examples
             new() { SessionId = 2, SectionId = 1, SessionNumber = 2, Date = new DateOnly(2025,10,21), StartTime = new TimeOnly(8,0), EndTime = new TimeOnly(10,0), Topic = "Componentes de UI en Android" }
         };
     }
+
+    public class SessionWithStatsExample : IExamplesProvider<object>
+    {
+        public object GetExamples() => new List<object>
+        {
+            new
+            {
+                sessionId = 1,
+                sessionNumber = 1,
+                date = "2025-10-14",
+                startTime = "08:00:00",
+                endTime = "10:00:00",
+                topic = "Introducción a Android Studio",
+                attendanceStats = new
+                {
+                    presente = 4,
+                    ausente = 1,
+                    tarde = 1,
+                    justificado = 0
+                }
+            },
+            new
+            {
+                sessionId = 2,
+                sessionNumber = 2,
+                date = "2025-10-21",
+                startTime = "08:00:00",
+                endTime = "10:00:00",
+                topic = "Componentes de UI en Android",
+                attendanceStats = new
+                {
+                    presente = 5,
+                    ausente = 0,
+                    tarde = 1,
+                    justificado = 0
+                }
+            }
+        };
+    }
 }

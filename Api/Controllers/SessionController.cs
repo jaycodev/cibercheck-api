@@ -52,8 +52,9 @@ namespace CiberCheck.Controllers
         [RequireTeacher]
         [SwaggerOperation(
             Summary = "Listar sesiones por slugs", 
-            Description = "Obtiene todas las sesiones de una sección del profesor autenticado usando slugs."
+            Description = "Obtiene todas las sesiones de una sección del profesor autenticado usando slugs con estadísticas de asistencia."
         )]
+        [SwaggerResponseExample(StatusCodes.Status200OK, typeof(SessionWithStatsExample))]
         public async Task<ActionResult> GetSessionsBySlugs(string courseSlug, string sectionSlug)
         {
             var course = await _courseService.GetBySlugAsync(courseSlug);
@@ -64,17 +65,28 @@ namespace CiberCheck.Controllers
 
             var sessions = await _db.Sessions
                 .Where(s => s.SectionId == section.SectionId)
-                .OrderBy(s => s.SessionNumber)
+                .GroupJoin(
+                    _db.Attendances,
+                    session => session.SessionId,
+                    attendance => attendance.SessionId,
+                    (session, attendances) => new
+                    {
+                        sessionId = session.SessionId,
+                        sessionNumber = session.SessionNumber,
+                        date = session.Date,
+                        startTime = session.StartTime,
+                        endTime = session.EndTime,
+                        topic = session.Topic,
+                        attendanceStats = new
+                        {
+                            presente = attendances.Count(a => a.Status == "presente"),
+                            ausente = attendances.Count(a => a.Status == "ausente"),
+                            tarde = attendances.Count(a => a.Status == "tarde"),
+                            justificado = attendances.Count(a => a.Status == "justificado")
+                        }
+                    })
+                .OrderBy(s => s.sessionNumber)
                 .AsNoTracking()
-                .Select(s => new
-                {
-                    sessionId = s.SessionId,
-                    sessionNumber = s.SessionNumber,
-                    date = s.Date,
-                    startTime = s.StartTime,
-                    endTime = s.EndTime,
-                    topic = s.Topic
-                })
                 .ToListAsync();
 
             return Ok(sessions);
