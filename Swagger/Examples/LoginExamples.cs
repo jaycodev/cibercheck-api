@@ -9,7 +9,7 @@ namespace CiberCheck.Swagger.Examples
         {
             return new LoginDto
             {
-                Email = "juan.perez@instituto.edu",
+                Email = "jperez@cibertec.edu.pe",
                 Password = "profe123"
             };
         }
@@ -25,8 +25,9 @@ namespace CiberCheck.Swagger.Examples
                 User = new UserDto
                 {
                     UserId = 1,
-                    FullName = "Juan Pérez",
-                    Email = "juan.perez@instituto.edu",
+                    FirstName = "Juan",
+                    LastName = "Pérez",
+                    Email = "jperez@cibertec.edu.pe",
                     Role = "profesor"
                 }
             };

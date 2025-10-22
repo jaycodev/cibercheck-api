@@ -6,7 +6,8 @@ GO
 
 CREATE TABLE Users (
     UserId INT IDENTITY(1,1) PRIMARY KEY,
-    FullName NVARCHAR(100) NOT NULL,
+    FirstName NVARCHAR(50) NOT NULL,
+    LastName NVARCHAR(50) NOT NULL,
     Email NVARCHAR(100) NOT NULL UNIQUE,
     Role NVARCHAR(20) NOT NULL CHECK (Role IN ('profesor', 'estudiante')),
     PasswordHash NVARCHAR(255) NOT NULL

@@ -63,7 +63,8 @@ namespace CiberCheck.Controllers
                 .Select(student => new
                 {
                     studentId = student.UserId,
-                    fullName = student.FullName,
+                    firstName = student.FirstName,
+                    lastName = student.LastName,
                     email = student.Email,
                     attendance = _db.Attendances
                         .Where(a => a.StudentId == student.UserId && a.SessionId == session.SessionId)
@@ -74,7 +75,8 @@ namespace CiberCheck.Controllers
                         })
                         .FirstOrDefault()
                 })
-                .OrderBy(s => s.fullName)
+                .OrderBy(s => s.lastName)
+                .ThenBy(s => s.firstName)
                 .ToListAsync();
 
             return Ok(new
