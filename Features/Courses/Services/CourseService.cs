@@ -26,12 +26,12 @@ namespace CiberCheck.Services
 
         public async Task<Course?> GetBySlugAsync(string slug)
             => await _db.Courses
+                .Include(c => c.Sections)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(c => c.Slug == slug);
 
         public async Task<Course> CreateAsync(Course entity)
         {
-            // Auto-generar slug desde el nombre
             var existingSlugs = await _db.Courses
                 .Select(c => c.Slug)
                 .ToListAsync();
@@ -48,7 +48,6 @@ namespace CiberCheck.Services
             var existing = await _db.Courses.FindAsync(id);
             if (existing == null) return false;
             
-            // Si el nombre cambió, regenerar slug
             if (existing.Name != entity.Name)
             {
                 var existingSlugs = await _db.Courses
