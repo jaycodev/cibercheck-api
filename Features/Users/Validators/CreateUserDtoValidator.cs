@@ -5,7 +5,7 @@ namespace CiberCheck.Features.Users.Validators
 {
     public class CreateUserDtoValidator : AbstractValidator<CreateUserDto>
     {
-        private static readonly string[] AllowedRoles = new[] { "teacher", "student" };
+        private static readonly string[] AllowedRoles = new[] { "profesor", "estudiante" };
 
         public CreateUserDtoValidator()
         {

@@ -8,10 +8,12 @@ namespace CiberCheck.Swagger.Examples
         public TeacherCourseDto GetExamples() => new()
         {
             CourseId = 1,
-            Name = "Desarrollo de Aplicaciones M髒iles I",
+            Name = "Desarrollo de Aplicaciones M贸viles I",
             Code = "DAM-I",
+            Slug = "desarrollo-de-aplicaciones-moviles-i",
             SectionId = 1,
-            Section = "Secci髇 A"
+            Section = "Secci贸n A",
+            SectionSlug = "seccion-a"
         };
     }
 
@@ -19,9 +21,9 @@ namespace CiberCheck.Swagger.Examples
     {
         public IEnumerable<TeacherCourseDto> GetExamples() => new List<TeacherCourseDto>
         {
-            new() { CourseId = 1, Name = "Desarrollo de Aplicaciones M髒iles I", Code = "DAM-I", SectionId = 1, Section = "Secci髇 A" },
-            new() { CourseId = 1, Name = "Desarrollo de Aplicaciones M髒iles I", Code = "DAM-I", SectionId = 2, Section = "Secci髇 B" },
-            new() { CourseId = 4, Name = "Lenguaje de Programaci髇 II", Code = "LP-II", SectionId = 6, Section = "Secci髇 A" }
+            new() { CourseId = 1, Name = "Desarrollo de Aplicaciones M贸viles I", Code = "DAM-I", Slug = "desarrollo-de-aplicaciones-moviles-i", SectionId = 1, Section = "Secci贸n A", SectionSlug = "seccion-a" },
+            new() { CourseId = 1, Name = "Desarrollo de Aplicaciones M贸viles I", Code = "DAM-I", Slug = "desarrollo-de-aplicaciones-moviles-i", SectionId = 2, Section = "Secci贸n B", SectionSlug = "seccion-b" },
+            new() { CourseId = 4, Name = "Lenguaje de Programaci贸n II", Code = "LP-II", Slug = "lenguaje-de-programacion-ii", SectionId = 6, Section = "Secci贸n A", SectionSlug = "seccion-a" }
         };
     }
 }

@@ -8,9 +8,9 @@ namespace CiberCheck.Swagger.Examples
     {
         public CreateAttendanceDto GetExamples() => new()
         {
-            StudentId = 3,
+            StudentId = 5,
             SessionId = 1,
-            Status = "present",
+            Status = "presente",
             Notes = null
         };
     }
@@ -19,8 +19,8 @@ namespace CiberCheck.Swagger.Examples
     {
         public UpdateAttendanceDto GetExamples() => new()
         {
-            Status = "absent",
-            Notes = "Sick"
+            Status = "ausente",
+            Notes = "Enfermo"
         };
     }
 
@@ -28,9 +28,9 @@ namespace CiberCheck.Swagger.Examples
     {
         public AttendanceDto GetExamples() => new()
         {
-            StudentId = 3,
+            StudentId = 5,
             SessionId = 1,
-            Status = "present",
+            Status = "presente",
             Notes = null
         };
     }
@@ -39,8 +39,9 @@ namespace CiberCheck.Swagger.Examples
     {
         public IEnumerable<AttendanceDto> GetExamples() => new List<AttendanceDto>
         {
-            new() { StudentId = 3, SessionId = 1, Status = "present", Notes = null },
-            new() { StudentId = 4, SessionId = 1, Status = "absent", Notes = "Sick" }
+            new() { StudentId = 5, SessionId = 1, Status = "presente", Notes = null },
+            new() { StudentId = 6, SessionId = 1, Status = "ausente", Notes = "Enfermo" },
+            new() { StudentId = 7, SessionId = 1, Status = "tarde", Notes = "Tráfico" }
         };
     }
 }

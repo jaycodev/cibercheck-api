@@ -10,7 +10,7 @@ namespace CiberCheck.Swagger.Examples
         {
             CourseId = 1,
             TeacherId = 1,
-            Name = "A"
+            Name = "Sección A"
         };
     }
 
@@ -20,7 +20,7 @@ namespace CiberCheck.Swagger.Examples
         {
             CourseId = 1,
             TeacherId = 1,
-            Name = "B"
+            Name = "Sección B"
         };
     }
 
@@ -31,7 +31,8 @@ namespace CiberCheck.Swagger.Examples
             SectionId = 1,
             CourseId = 1,
             TeacherId = 1,
-            Name = "A"
+            Name = "Sección A",
+            Slug = "seccion-a"
         };
     }
 
@@ -39,8 +40,8 @@ namespace CiberCheck.Swagger.Examples
     {
         public IEnumerable<SectionDto> GetExamples() => new List<SectionDto>
         {
-            new() { SectionId = 1, CourseId = 1, TeacherId = 1, Name = "A" },
-            new() { SectionId = 2, CourseId = 1, TeacherId = 1, Name = "B" }
+            new() { SectionId = 1, CourseId = 1, TeacherId = 1, Name = "Sección A", Slug = "seccion-a" },
+            new() { SectionId = 2, CourseId = 1, TeacherId = 1, Name = "Sección B", Slug = "seccion-b" }
         };
     }
 }

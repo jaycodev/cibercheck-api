@@ -10,10 +10,10 @@ namespace CiberCheck.Swagger.Examples
         {
             SectionId = 1,
             SessionNumber = 1,
-            Date = new DateOnly(2025,10,16),
+            Date = new DateOnly(2025,10,14),
             StartTime = new TimeOnly(8,0),
             EndTime = new TimeOnly(10,0),
-            Topic = "Introducción a la Programación"
+            Topic = "Introducción a Android Studio"
         };
     }
 
@@ -21,11 +21,11 @@ namespace CiberCheck.Swagger.Examples
     {
         public UpdateSessionDto GetExamples() => new()
         {
-            SessionNumber = 1,
-            Date = new DateOnly(2025,10,23),
+            SessionNumber = 2,
+            Date = new DateOnly(2025,10,21),
             StartTime = new TimeOnly(8,0),
             EndTime = new TimeOnly(10,0),
-            Topic = "Variables y Tipos de Datos"
+            Topic = "Componentes de UI en Android"
         };
     }
 
@@ -36,10 +36,10 @@ namespace CiberCheck.Swagger.Examples
             SessionId = 1,
             SectionId = 1,
             SessionNumber = 1,
-            Date = new DateOnly(2025,10,16),
+            Date = new DateOnly(2025,10,14),
             StartTime = new TimeOnly(8,0),
             EndTime = new TimeOnly(10,0),
-            Topic = "Introducción a la Programación"
+            Topic = "Introducción a Android Studio"
         };
     }
 
@@ -47,8 +47,8 @@ namespace CiberCheck.Swagger.Examples
     {
         public IEnumerable<SessionDto> GetExamples() => new List<SessionDto>
         {
-            new() { SessionId = 1, SectionId = 1, SessionNumber = 1, Date = new DateOnly(2025,10,16), StartTime = new TimeOnly(8,0), EndTime = new TimeOnly(10,0), Topic = "Introducción a la Programación" },
-            new() { SessionId = 2, SectionId = 1, SessionNumber = 2, Date = new DateOnly(2025,10,23), StartTime = new TimeOnly(8,0), EndTime = new TimeOnly(10,0), Topic = "Variables y Tipos de Datos" }
+            new() { SessionId = 1, SectionId = 1, SessionNumber = 1, Date = new DateOnly(2025,10,14), StartTime = new TimeOnly(8,0), EndTime = new TimeOnly(10,0), Topic = "Introducción a Android Studio" },
+            new() { SessionId = 2, SectionId = 1, SessionNumber = 2, Date = new DateOnly(2025,10,21), StartTime = new TimeOnly(8,0), EndTime = new TimeOnly(10,0), Topic = "Componentes de UI en Android" }
         };
     }
 }
