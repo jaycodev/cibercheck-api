@@ -2,26 +2,26 @@ USE CiberCheck;
 GO
 
 INSERT INTO Users (FullName, Email, Role, PasswordHash) VALUES
-('Juan Pérez', 'juan.perez@instituto.edu', 'profesor', 'hash1'),
-('María González', 'maria.gonzalez@instituto.edu', 'profesor', 'hash2'),
-('Carlos Rodríguez', 'carlos.rodriguez@instituto.edu', 'profesor', 'hash3'),
-('Roberto Fernández', 'roberto.fernandez@instituto.edu', 'profesor', 'hash4'),
-('Ana López', 'ana.lopez@instituto.edu', 'estudiante', 'hash5'),
-('Luis Martínez', 'luis.martinez@instituto.edu', 'estudiante', 'hash6'),
-('Carmen Sánchez', 'carmen.sanchez@instituto.edu', 'estudiante', 'hash7'),
-('Miguel Torres', 'miguel.torres@instituto.edu', 'estudiante', 'hash8'),
-('Laura Ramírez', 'laura.ramirez@instituto.edu', 'estudiante', 'hash9'),
-('Pedro Flores', 'pedro.flores@instituto.edu', 'estudiante', 'hash10'),
-('Sofia Morales', 'sofia.morales@instituto.edu', 'estudiante', 'hash11'),
-('Diego Castro', 'diego.castro@instituto.edu', 'estudiante', 'hash12'),
-('Valentina Ruiz', 'valentina.ruiz@instituto.edu', 'estudiante', 'hash13'),
-('Javier Mendoza', 'javier.mendoza@instituto.edu', 'estudiante', 'hash14'),
-('Isabella Vargas', 'isabella.vargas@instituto.edu', 'estudiante', 'hash15'),
-('Andrés Silva', 'andres.silva@instituto.edu', 'estudiante', 'hash16'),
-('Camila Ortiz', 'camila.ortiz@instituto.edu', 'estudiante', 'hash17'),
-('Sebastián Reyes', 'sebastian.reyes@instituto.edu', 'estudiante', 'hash18'),
-('Daniela Herrera', 'daniela.herrera@instituto.edu', 'estudiante', 'hash19'),
-('Mateo Jiménez', 'mateo.jimenez@instituto.edu', 'estudiante', 'hash20');
+('Juan Pérez', 'juan.perez@instituto.edu', 'profesor', '$2a$12$a4/15tNZryeIdDd7nKzo2uWM3tC7Qbbi03O3jGO76ZvEEGReMeeW6'), -- Password: profe123
+('María González', 'maria.gonzalez@instituto.edu', 'profesor', '$2a$12$a4/15tNZryeIdDd7nKzo2uWM3tC7Qbbi03O3jGO76ZvEEGReMeeW6'), -- Password: profe123
+('Carlos Rodríguez', 'carlos.rodriguez@instituto.edu', 'profesor', '$2a$12$a4/15tNZryeIdDd7nKzo2uWM3tC7Qbbi03O3jGO76ZvEEGReMeeW6'), -- Password: profe123
+('Roberto Fernández', 'roberto.fernandez@instituto.edu', 'profesor', '$2a$12$a4/15tNZryeIdDd7nKzo2uWM3tC7Qbbi03O3jGO76ZvEEGReMeeW6'), -- Password: profe123
+('Ana López', 'ana.lopez@instituto.edu', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
+('Luis Martínez', 'luis.martinez@instituto.edu', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
+('Carmen Sánchez', 'carmen.sanchez@instituto.edu', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
+('Miguel Torres', 'miguel.torres@instituto.edu', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
+('Laura Ramírez', 'laura.ramirez@instituto.edu', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
+('Pedro Flores', 'pedro.flores@instituto.edu', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
+('Sofia Morales', 'sofia.morales@instituto.edu', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
+('Diego Castro', 'diego.castro@instituto.edu', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
+('Valentina Ruiz', 'valentina.ruiz@instituto.edu', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
+('Javier Mendoza', 'javier.mendoza@instituto.edu', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
+('Isabella Vargas', 'isabella.vargas@instituto.edu', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
+('Andrés Silva', 'andres.silva@instituto.edu', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
+('Camila Ortiz', 'camila.ortiz@instituto.edu', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
+('Sebastián Reyes', 'sebastian.reyes@instituto.edu', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
+('Daniela Herrera', 'daniela.herrera@instituto.edu', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
+('Mateo Jiménez', 'mateo.jimenez@instituto.edu', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'); -- Password: estudiante123
 GO
 
 INSERT INTO Courses (Name, Code, Slug) VALUES

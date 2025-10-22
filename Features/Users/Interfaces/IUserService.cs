@@ -8,6 +8,7 @@ namespace CiberCheck.Interfaces
     {
         Task<List<User>> GetAllAsync();
         Task<User?> GetByIdAsync(int id);
+        Task<User?> GetByEmailAsync(string email);
         Task<User> CreateAsync(User entity);
         Task<bool> UpdateAsync(int id, User entity);
         Task<bool> DeleteAsync(int id);
