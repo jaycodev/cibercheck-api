@@ -5,7 +5,7 @@ namespace CiberCheck.Features.Attendance.Validators
 {
     public class CreateAttendanceDtoValidator : AbstractValidator<CreateAttendanceDto>
     {
-        private static readonly string[] Allowed = new[] { "present", "absent", "late", "excused" };
+        private static readonly string[] Allowed = new[] { "presente", "ausente", "tarde", "justificado" };
 
         public CreateAttendanceDtoValidator()
         {

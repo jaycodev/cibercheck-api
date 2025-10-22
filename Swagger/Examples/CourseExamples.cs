@@ -8,8 +8,8 @@ namespace CiberCheck.Swagger.Examples
     {
         public CreateCourseDto GetExamples() => new()
         {
-            Name = "Mathematics I",
-            Code = "MATH101"
+            Name = "Desarrollo de Aplicaciones Móviles I",
+            Code = "DAM-I"
         };
     }
 
@@ -17,8 +17,8 @@ namespace CiberCheck.Swagger.Examples
     {
         public UpdateCourseDto GetExamples() => new()
         {
-            Name = "Mathematics I - Updated",
-            Code = "MATH101"
+            Name = "Desarrollo de Aplicaciones Móviles II",
+            Code = "DAM-II"
         };
     }
 
@@ -27,8 +27,9 @@ namespace CiberCheck.Swagger.Examples
         public CourseDto GetExamples() => new()
         {
             CourseId = 1,
-            Name = "Mathematics I",
-            Code = "MATH101"
+            Name = "Desarrollo de Aplicaciones Móviles I",
+            Code = "DAM-I",
+            Slug = "desarrollo-de-aplicaciones-moviles-i"
         };
     }
 
@@ -36,8 +37,8 @@ namespace CiberCheck.Swagger.Examples
     {
         public IEnumerable<CourseDto> GetExamples() => new List<CourseDto>
         {
-            new() { CourseId = 1, Name = "Mathematics I", Code = "MATH101" },
-            new() { CourseId = 2, Name = "Physics I", Code = "PHYS101" }
+            new() { CourseId = 1, Name = "Desarrollo de Aplicaciones Móviles I", Code = "DAM-I", Slug = "desarrollo-de-aplicaciones-moviles-i" },
+            new() { CourseId = 2, Name = "Seguridad de Aplicaciones", Code = "SEG-APP", Slug = "seguridad-de-aplicaciones" }
         };
     }
 }
