@@ -24,31 +24,31 @@ INSERT INTO Users (FullName, Email, Role, PasswordHash) VALUES
 ('Mateo Jiménez', 'mateo.jimenez@instituto.edu', 'estudiante', 'hash20');
 GO
 
-INSERT INTO Courses (Name, Code) VALUES
-('Desarrollo de Aplicaciones Móviles I', 'DAM-I'),
-('Seguridad de Aplicaciones', 'SEG-APP'),
-('Experiencias Formativas en Situaciones Reales de Trabajo IV', 'EFSRT-IV'),
-('Lenguaje de Programación II', 'LP-II'),
-('Desarrollo de Servicios Web I', 'DSW-I'),
-('Desarrollo de Aplicaciones Web I', 'DAW-I'),
-('Base de Datos Avanzado I', 'BDA-I'),
-('Análisis y Diseño de Sistemas I', 'ADS-I');
+INSERT INTO Courses (Name, Code, Slug) VALUES
+('Desarrollo de Aplicaciones Móviles I', 'DAM-I', 'desarrollo-de-aplicaciones-moviles-i'),
+('Seguridad de Aplicaciones', 'SEG-APP', 'seguridad-de-aplicaciones'),
+('Experiencias Formativas en Situaciones Reales de Trabajo IV', 'EFSRT-IV', 'experiencias-formativas-en-situaciones-reales-de-trabajo-iv'),
+('Lenguaje de Programación II', 'LP-II', 'lenguaje-de-programacion-ii'),
+('Desarrollo de Servicios Web I', 'DSW-I', 'desarrollo-de-servicios-web-i'),
+('Desarrollo de Aplicaciones Web I', 'DAW-I', 'desarrollo-de-aplicaciones-web-i'),
+('Base de Datos Avanzado I', 'BDA-I', 'base-de-datos-avanzado-i'),
+('Análisis y Diseño de Sistemas I', 'ADS-I', 'analisis-y-diseno-de-sistemas-i');
 GO
 
-INSERT INTO Sections (CourseId, TeacherId, Name) VALUES
-(1, 1, 'Sección A'),
-(1, 1, 'Sección B'),
-(2, 2, 'Sección A'),
-(2, 2, 'Sección B'),
-(3, 3, 'Sección A'),
-(4, 1, 'Sección A'),
-(4, 4, 'Sección B'),
-(5, 2, 'Sección A'),
-(6, 3, 'Sección A'),
-(6, 4, 'Sección B'),
-(7, 1, 'Sección A'),
-(8, 2, 'Sección A'),
-(8, 3, 'Sección B');
+INSERT INTO Sections (CourseId, TeacherId, Name, Slug) VALUES
+(1, 1, 'Sección A', 'seccion-a'),
+(1, 1, 'Sección B', 'seccion-b'),
+(2, 2, 'Sección A', 'seccion-a'),
+(2, 2, 'Sección B', 'seccion-b'),
+(3, 3, 'Sección A', 'seccion-a'),
+(4, 1, 'Sección A', 'seccion-a'),
+(4, 4, 'Sección B', 'seccion-b'),
+(5, 2, 'Sección A', 'seccion-a'),
+(6, 3, 'Sección A', 'seccion-a'),
+(6, 4, 'Sección B', 'seccion-b'),
+(7, 1, 'Sección A', 'seccion-a'),
+(8, 2, 'Sección A', 'seccion-a'),
+(8, 3, 'Sección B', 'seccion-b');
 GO
 
 INSERT INTO StudentsSections (StudentId, SectionId) VALUES
@@ -67,33 +67,33 @@ INSERT INTO StudentsSections (StudentId, SectionId) VALUES
 (11, 13), (12, 13), (13, 13), (14, 13), (15, 13), (16, 13);
 GO
 
-INSERT INTO Sessions (SectionId, Date, StartTime, EndTime, Topic) VALUES
-(1, '2025-10-14', '08:00', '10:00', 'Introducción a Android Studio'),
-(1, '2025-10-21', '08:00', '10:00', 'Componentes de UI en Android'),
-(1, '2025-10-28', '08:00', '10:00', 'Actividades e Intents'),
-(2, '2025-10-15', '10:00', '12:00', 'Layouts y ViewGroups'),
-(2, '2025-10-22', '10:00', '12:00', 'RecyclerView y Adaptadores'),
-(3, '2025-10-16', '14:00', '16:00', 'Criptografía y Cifrado'),
-(3, '2025-10-23', '14:00', '16:00', 'Autenticación y Autorización'),
-(4, '2025-10-17', '08:00', '10:00', 'SQL Injection y Prevención'),
-(4, '2025-10-24', '08:00', '10:00', 'OWASP Top 10'),
-(5, '2025-10-18', '09:00', '11:00', 'Metodologías Ágiles en la Práctica'),
-(6, '2025-10-14', '14:00', '16:00', 'Programación Orientada a Objetos'),
-(6, '2025-10-21', '14:00', '16:00', 'Estructuras de Control Avanzadas'),
-(7, '2025-10-15', '16:00', '18:00', 'Herencia y Polimorfismo'),
-(7, '2025-10-22', '16:00', '18:00', 'Interfaces y Clases Abstractas'),
-(8, '2025-10-16', '10:00', '12:00', 'Introducción a REST API'),
-(8, '2025-10-23', '10:00', '12:00', 'Métodos HTTP y Códigos de Estado'),
-(9, '2025-10-17', '14:00', '16:00', 'HTML5 y CSS3 Avanzado'),
-(9, '2025-10-24', '14:00', '16:00', 'JavaScript y DOM Manipulation'),
-(10, '2025-10-18', '16:00', '18:00', 'Responsive Design y Bootstrap'),
-(10, '2025-10-25', '16:00', '18:00', 'Frameworks Frontend'),
-(11, '2025-10-14', '10:00', '12:00', 'Procedimientos Almacenados'),
-(11, '2025-10-21', '10:00', '12:00', 'Triggers y Funciones'),
-(12, '2025-10-15', '08:00', '10:00', 'Diagramas UML'),
-(12, '2025-10-22', '08:00', '10:00', 'Casos de Uso'),
-(13, '2025-10-16', '16:00', '18:00', 'Diagramas de Clases'),
-(13, '2025-10-23', '16:00', '18:00', 'Patrones de Diseño');
+INSERT INTO Sessions (SectionId, SessionNumber, Date, StartTime, EndTime, Topic) VALUES
+(1, 1, '2025-10-14', '08:00', '10:00', 'Introducción a Android Studio'),
+(1, 2, '2025-10-21', '08:00', '10:00', 'Componentes de UI en Android'),
+(1, 3, '2025-10-28', '08:00', '10:00', 'Actividades e Intents'),
+(2, 1, '2025-10-15', '10:00', '12:00', 'Layouts y ViewGroups'),
+(2, 2, '2025-10-22', '10:00', '12:00', 'RecyclerView y Adaptadores'),
+(3, 1, '2025-10-16', '14:00', '16:00', 'Criptografía y Cifrado'),
+(3, 2, '2025-10-23', '14:00', '16:00', 'Autenticación y Autorización'),
+(4, 1, '2025-10-17', '08:00', '10:00', 'SQL Injection y Prevención'),
+(4, 2, '2025-10-24', '08:00', '10:00', 'OWASP Top 10'),
+(5, 1, '2025-10-18', '09:00', '11:00', 'Metodologías Ágiles en la Práctica'),
+(6, 1, '2025-10-14', '14:00', '16:00', 'Programación Orientada a Objetos'),
+(6, 2, '2025-10-21', '14:00', '16:00', 'Estructuras de Control Avanzadas'),
+(7, 1, '2025-10-15', '16:00', '18:00', 'Herencia y Polimorfismo'),
+(7, 2, '2025-10-22', '16:00', '18:00', 'Interfaces y Clases Abstractas'),
+(8, 1, '2025-10-16', '10:00', '12:00', 'Introducción a REST API'),
+(8, 2, '2025-10-23', '10:00', '12:00', 'Métodos HTTP y Códigos de Estado'),
+(9, 1, '2025-10-17', '14:00', '16:00', 'HTML5 y CSS3 Avanzado'),
+(9, 2, '2025-10-24', '14:00', '16:00', 'JavaScript y DOM Manipulation'),
+(10, 1, '2025-10-18', '16:00', '18:00', 'Responsive Design y Bootstrap'),
+(10, 2, '2025-10-25', '16:00', '18:00', 'Frameworks Frontend'),
+(11, 1, '2025-10-14', '10:00', '12:00', 'Procedimientos Almacenados'),
+(11, 2, '2025-10-21', '10:00', '12:00', 'Triggers y Funciones'),
+(12, 1, '2025-10-15', '08:00', '10:00', 'Diagramas UML'),
+(12, 2, '2025-10-22', '08:00', '10:00', 'Casos de Uso'),
+(13, 1, '2025-10-16', '16:00', '18:00', 'Diagramas de Clases'),
+(13, 2, '2025-10-23', '16:00', '18:00', 'Patrones de Diseño');
 GO
 
 INSERT INTO Attendance (StudentId, SessionId, Status, Notes) VALUES

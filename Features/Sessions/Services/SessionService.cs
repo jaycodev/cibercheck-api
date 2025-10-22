@@ -22,6 +22,15 @@ namespace CiberCheck.Services
 
         public async Task<Session> CreateAsync(Session entity)
         {
+            if (entity.SessionNumber == 0)
+            {
+                var maxSessionNumber = await _db.Sessions
+                    .Where(s => s.SectionId == entity.SectionId)
+                    .MaxAsync(s => (int?)s.SessionNumber) ?? 0;
+                
+                entity.SessionNumber = maxSessionNumber + 1;
+            }
+            
             _db.Sessions.Add(entity);
             await _db.SaveChangesAsync();
             return entity;

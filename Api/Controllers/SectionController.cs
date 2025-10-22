@@ -23,17 +23,8 @@ namespace CiberCheck.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
-        [SwaggerOperation(Summary = "Listar secciones", Description = "Obtiene todas las secciones.")]
-        [SwaggerResponseExample(StatusCodes.Status200OK, typeof(SectionDtoListExample))]
-        public async Task<ActionResult<IEnumerable<SectionDto>>> GetAll()
-        {
-            var items = await _service.GetAllAsync();
-            return Ok(_mapper.Map<List<SectionDto>>(items));
-        }
-
         [HttpGet("{id:int}")]
-        [SwaggerOperation(Summary = "Obtener sección por Id", Description = "Retorna una sección por su identificador.")]
+        [SwaggerOperation(Summary = "Obtener sección por Id", Description = "Retorna una sección por su identificador numérico (para CRUD).")]
         [SwaggerResponseExample(StatusCodes.Status200OK, typeof(SectionDtoExample))]
         public async Task<ActionResult<SectionDto>> GetById(int id)
         {

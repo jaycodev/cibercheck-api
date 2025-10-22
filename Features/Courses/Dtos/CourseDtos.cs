@@ -10,8 +10,10 @@ namespace CiberCheck.Features.Courses.Dtos
         public int CourseId { get; set; }
         [SwaggerSchema(Description = "Nombre del curso")]
         public string Name { get; set; } = null!;
-        [SwaggerSchema(Description = "Código único del curso (opcional)")]
-        public string? Code { get; set; }
+        [SwaggerSchema(Description = "Código único del curso")]
+        public string Code { get; set; } = null!;
+        [SwaggerSchema(Description = "Slug único del curso para URLs amigables")]
+        public string Slug { get; set; } = null!;
     }
 
     [SwaggerSchema(Description = "Curso del profesor con sección")]
@@ -22,11 +24,15 @@ namespace CiberCheck.Features.Courses.Dtos
         [SwaggerSchema(Description = "Nombre del curso")]
         public string Name { get; set; } = null!;
         [SwaggerSchema(Description = "Código único del curso")]
-        public string? Code { get; set; }
+        public string Code { get; set; } = null!;
+        [SwaggerSchema(Description = "Slug del curso")]
+        public string Slug { get; set; } = null!;
         [SwaggerSchema(Description = "Identificador de la sección")]
         public int SectionId { get; set; }
         [SwaggerSchema(Description = "Nombre de la sección")]
-        public string? Section { get; set; }
+        public string Section { get; set; } = null!;
+        [SwaggerSchema(Description = "Slug de la sección")]
+        public string SectionSlug { get; set; } = null!;
     }
 
     [SwaggerSchema(Description = "Payload para crear un curso")]
@@ -36,8 +42,10 @@ namespace CiberCheck.Features.Courses.Dtos
         [MaxLength(100)]
         [SwaggerSchema(Description = "Nombre del curso")]
         public string Name { get; set; } = null!;
-        [SwaggerSchema(Description = "Código único del curso (opcional)")]
-        public string? Code { get; set; }
+        [Required]
+        [MaxLength(20)]
+        [SwaggerSchema(Description = "Código único del curso")]
+        public string Code { get; set; } = null!;
     }
 
     [SwaggerSchema(Description = "Payload para actualizar un curso")]
@@ -47,7 +55,9 @@ namespace CiberCheck.Features.Courses.Dtos
         [MaxLength(100)]
         [SwaggerSchema(Description = "Nombre del curso")]
         public string Name { get; set; } = null!;
-        [SwaggerSchema(Description = "Código único del curso (opcional)")]
-        public string? Code { get; set; }
+        [Required]
+        [MaxLength(20)]
+        [SwaggerSchema(Description = "Código único del curso")]
+        public string Code { get; set; } = null!;
     }
 }

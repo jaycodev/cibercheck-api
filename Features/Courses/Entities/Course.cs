@@ -11,7 +11,9 @@ public partial class Course
 
     public string Name { get; set; } = null!;
 
-    public string? Code { get; set; }
+    public string Code { get; set; } = null!;
+
+    public string Slug { get; set; } = null!;
 
     public virtual ICollection<Section> Sections { get; set; } = new List<Section>();
 }

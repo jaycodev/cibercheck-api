@@ -9,7 +9,9 @@ namespace CiberCheck.Features.Sections.Dtos
         public int SectionId { get; set; }
         public int CourseId { get; set; }
         public int TeacherId { get; set; }
-        public string? Name { get; set; }
+        public string Name { get; set; } = null!;
+        [SwaggerSchema(Description = "Slug único de la sección dentro del curso")]
+        public string Slug { get; set; } = null!;
     }
 
     [SwaggerSchema(Description = "Payload para crear una sección")]
@@ -19,8 +21,9 @@ namespace CiberCheck.Features.Sections.Dtos
         public int CourseId { get; set; }
         [Required]
         public int TeacherId { get; set; }
+        [Required]
         [MaxLength(50)]
-        public string? Name { get; set; }
+        public string Name { get; set; } = null!;
     }
 
     [SwaggerSchema(Description = "Payload para actualizar una sección")]
@@ -30,7 +33,8 @@ namespace CiberCheck.Features.Sections.Dtos
         public int CourseId { get; set; }
         [Required]
         public int TeacherId { get; set; }
+        [Required]
         [MaxLength(50)]
-        public string? Name { get; set; }
+        public string Name { get; set; } = null!;
     }
 }
