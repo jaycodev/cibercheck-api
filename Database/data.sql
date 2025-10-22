@@ -2,26 +2,26 @@ USE CiberCheck;
 GO
 
 INSERT INTO Users (FullName, Email, Role, PasswordHash) VALUES
-('Juan Pérez', 'juan.perez@instituto.edu', 'profesor', '$2a$12$a4/15tNZryeIdDd7nKzo2uWM3tC7Qbbi03O3jGO76ZvEEGReMeeW6'), -- Password: profe123
-('María González', 'maria.gonzalez@instituto.edu', 'profesor', '$2a$12$a4/15tNZryeIdDd7nKzo2uWM3tC7Qbbi03O3jGO76ZvEEGReMeeW6'), -- Password: profe123
-('Carlos Rodríguez', 'carlos.rodriguez@instituto.edu', 'profesor', '$2a$12$a4/15tNZryeIdDd7nKzo2uWM3tC7Qbbi03O3jGO76ZvEEGReMeeW6'), -- Password: profe123
-('Roberto Fernández', 'roberto.fernandez@instituto.edu', 'profesor', '$2a$12$a4/15tNZryeIdDd7nKzo2uWM3tC7Qbbi03O3jGO76ZvEEGReMeeW6'), -- Password: profe123
-('Ana López', 'ana.lopez@instituto.edu', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
-('Luis Martínez', 'luis.martinez@instituto.edu', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
-('Carmen Sánchez', 'carmen.sanchez@instituto.edu', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
-('Miguel Torres', 'miguel.torres@instituto.edu', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
-('Laura Ramírez', 'laura.ramirez@instituto.edu', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
-('Pedro Flores', 'pedro.flores@instituto.edu', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
-('Sofia Morales', 'sofia.morales@instituto.edu', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
-('Diego Castro', 'diego.castro@instituto.edu', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
-('Valentina Ruiz', 'valentina.ruiz@instituto.edu', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
-('Javier Mendoza', 'javier.mendoza@instituto.edu', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
-('Isabella Vargas', 'isabella.vargas@instituto.edu', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
-('Andrés Silva', 'andres.silva@instituto.edu', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
-('Camila Ortiz', 'camila.ortiz@instituto.edu', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
-('Sebastián Reyes', 'sebastian.reyes@instituto.edu', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
-('Daniela Herrera', 'daniela.herrera@instituto.edu', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
-('Mateo Jiménez', 'mateo.jimenez@instituto.edu', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'); -- Password: estudiante123
+('Juan Pérez', 'jperez@cibertec.edu.pe', 'profesor', '$2a$12$a4/15tNZryeIdDd7nKzo2uWM3tC7Qbbi03O3jGO76ZvEEGReMeeW6'), -- Password: profe123
+('María González', 'mgonzalez@cibertec.edu.pe', 'profesor', '$2a$12$a4/15tNZryeIdDd7nKzo2uWM3tC7Qbbi03O3jGO76ZvEEGReMeeW6'), -- Password: profe123
+('Carlos Rodríguez', 'crodriguez@cibertec.edu.pe', 'profesor', '$2a$12$a4/15tNZryeIdDd7nKzo2uWM3tC7Qbbi03O3jGO76ZvEEGReMeeW6'), -- Password: profe123
+('Roberto Fernández', 'rfernandez@cibertec.edu.pe', 'profesor', '$2a$12$a4/15tNZryeIdDd7nKzo2uWM3tC7Qbbi03O3jGO76ZvEEGReMeeW6'), -- Password: profe123
+('Ana López', 'i202507323@cibertec.edu.pe', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
+('Luis Martínez', 'i202507324@cibertec.edu.pe', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
+('Carmen Sánchez', 'i202507325@cibertec.edu.pe', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
+('Miguel Torres', 'i202507326@cibertec.edu.pe', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
+('Laura Ramírez', 'i202507327@cibertec.edu.pe', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
+('Pedro Flores', 'i202507328@cibertec.edu.pe', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
+('Sofia Morales', 'i202507329@cibertec.edu.pe', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
+('Diego Castro', 'i202507330@cibertec.edu.pe', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
+('Valentina Ruiz', 'i202507331@cibertec.edu.pe', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
+('Javier Mendoza', 'i202507332@cibertec.edu.pe', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
+('Isabella Vargas', 'i202507333@cibertec.edu.pe', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
+('Andrés Silva', 'i202507334@cibertec.edu.pe', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
+('Camila Ortiz', 'i202507335@cibertec.edu.pe', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
+('Sebastián Reyes', 'i202507336@cibertec.edu.pe', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
+('Daniela Herrera', 'i202507337@cibertec.edu.pe', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
+('Mateo Jiménez', 'i202507338@cibertec.edu.pe', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'); -- Password: estudiante123
 GO
 
 INSERT INTO Courses (Name, Code, Slug) VALUES

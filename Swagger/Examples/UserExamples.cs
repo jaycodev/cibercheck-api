@@ -9,7 +9,7 @@ namespace CiberCheck.Swagger.Examples
         public CreateUserDto GetExamples() => new()
         {
             FullName = "Juan Pérez",
-            Email = "juan.perez@instituto.edu",
+            Email = "jperez@cibertec.edu.pe",
             Role = "profesor",
             Password = "profe123"
         };
@@ -30,7 +30,7 @@ namespace CiberCheck.Swagger.Examples
         {
             UserId = 1,
             FullName = "Juan Pérez",
-            Email = "juan.perez@instituto.edu",
+            Email = "jperez@cibertec.edu.pe",
             Role = "profesor"
         };
     }
@@ -39,8 +39,8 @@ namespace CiberCheck.Swagger.Examples
     {
         public IEnumerable<UserDto> GetExamples() => new List<UserDto>
         {
-            new() { UserId = 1, FullName = "Juan Pérez", Email = "juan.perez@instituto.edu", Role = "profesor" },
-            new() { UserId = 5, FullName = "Ana López", Email = "ana.lopez@instituto.edu", Role = "estudiante" }
+            new() { UserId = 1, FullName = "Juan Pérez", Email = "jperez@cibertec.edu.pe", Role = "profesor" },
+            new() { UserId = 5, FullName = "Ana López", Email = "i202507323@cibertec.edu.pe", Role = "estudiante" }
         };
     }
 }
