@@ -9,9 +9,13 @@ namespace CiberCheck.Features.Users.Validators
 
         public CreateUserDtoValidator()
         {
-            RuleFor(x => x.FullName)
+            RuleFor(x => x.FirstName)
                 .NotEmpty()
-                .MaximumLength(100);
+                .MaximumLength(50);
+
+            RuleFor(x => x.LastName)
+                .NotEmpty()
+                .MaximumLength(50);
 
             RuleFor(x => x.Email)
                 .NotEmpty()

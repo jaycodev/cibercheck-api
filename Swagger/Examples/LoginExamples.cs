@@ -25,7 +25,8 @@ namespace CiberCheck.Swagger.Examples
                 User = new UserDto
                 {
                     UserId = 1,
-                    FullName = "Juan Pérez",
+                    FirstName = "Juan",
+                    LastName = "Pérez",
                     Email = "jperez@cibertec.edu.pe",
                     Role = "profesor"
                 }
