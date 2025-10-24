@@ -39,6 +39,7 @@ builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
 // Services / DI
 builder.Services.AddScoped<ICourseService, CourseService>();
+builder.Services.AddScoped<IOtpService, OtpService>();
 builder.Services.AddScoped<ISectionService, SectionService>();
 builder.Services.AddScoped<ISessionService, SessionService>();
 builder.Services.AddScoped<IAttendanceService, AttendanceService>();
