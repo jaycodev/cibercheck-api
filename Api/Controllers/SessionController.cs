@@ -93,6 +93,18 @@ namespace CiberCheck.Controllers
             return Ok(sessions);
         }
 
+        [HttpGet("student/{studentId:int}/day")]
+        [SwaggerOperation(Summary = "Sesiones del día para un alumno", Description = "Retorna cursos, sección, horas y tópico de las sesiones del día para un alumno. Parámetro opcional 'date' (yyyy-MM-dd).")]
+        [SwaggerResponseExample(StatusCodes.Status200OK, typeof(StudentDailyCourseListExample))]
+        public async Task<ActionResult<List<StudentDailyCourseDto>>> GetStudentDailySessions(int studentId, [FromQuery] DateOnly? date)
+        {
+            if (studentId <= 0)
+                return BadRequest(new { message = "studentId inválido" });
+
+            var result = await _service.GetStudentCoursesByDateAsync(studentId, date);
+            return Ok(result);
+        }
+
         [HttpPost]
         [SwaggerOperation(Summary = "Crear sesión", Description = "Crea una nueva sesión.")]
         [SwaggerRequestExample(typeof(CreateSessionDto), typeof(CreateSessionDtoExample))]
