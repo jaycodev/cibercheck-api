@@ -127,19 +127,19 @@ builder.Services.AddSwaggerExamplesFromAssemblies(AppDomain.CurrentDomain.GetAss
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+app.UseCors("AllowAll");
+
+app.UseSwagger();
+app.UseSwaggerUI(options =>
 {
     var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
-    app.UseSwagger();
-    app.UseSwaggerUI(options =>
+    foreach (var description in provider.ApiVersionDescriptions)
     {
-        foreach (var description in provider.ApiVersionDescriptions)
-        {
-            options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", $"CiberCheck API {description.GroupName.ToUpperInvariant()}");
-        }
-    });
-}
+        options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", $"CiberCheck API {description.GroupName.ToUpperInvariant()}");
+    }
+    options.RoutePrefix = "";
+    options.DocumentTitle = "CiberCheck API";
+});
 
 app.UseHttpsRedirection();
 
@@ -147,5 +147,11 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+var port = Environment.GetEnvironmentVariable("PORT");
+if (!string.IsNullOrEmpty(port))
+{
+    app.Urls.Add($"http://0.0.0.0:{port}");
+}
 
 app.Run();
