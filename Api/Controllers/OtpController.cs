@@ -37,7 +37,12 @@ namespace CiberCheck.Controllers
         {
             var otp = await _service.GenerateOtpAsync(dto.Email);
             var result = _mapper.Map<OtpDto>(otp);
-            return Created(string.Empty, result);
+
+            return Created(string.Empty, new
+            {
+                email = result.Email,
+                codigo = result.Codigo // solo para pruebas
+            });
         }
 
         /// <summary>
