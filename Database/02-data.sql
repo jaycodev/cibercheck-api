@@ -22,6 +22,7 @@ INSERT INTO Users (FirstName, LastName, Email, Role, PasswordHash) VALUES
 ('Sebastián', 'Reyes', 'i202507336@cibertec.edu.pe', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
 ('Daniela', 'Herrera', 'i202507337@cibertec.edu.pe', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'), -- Password: estudiante123
 ('Mateo', 'Jiménez', 'i202507338@cibertec.edu.pe', 'estudiante', '$2a$12$sDIyJPxIp3/hkt34lKVHtOOWKIc2hD0giexx/ltkQm1YOwYKS5Awi'); -- Password: estudiante123
+
 GO
 
 INSERT INTO Courses (Name, Code, Slug, Color) VALUES

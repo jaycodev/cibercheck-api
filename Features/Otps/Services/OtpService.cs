@@ -46,6 +46,10 @@ public class OtpService : IOtpService
 
         _db.Otp.Add(newOtp);
         await _db.SaveChangesAsync();
+
+        // Solo para pruebas: mostrar OTP en consola
+        Console.WriteLine($"OTP para {email}: {codigo}");
+
         return newOtp;
     }
 
@@ -99,4 +103,7 @@ public class OtpService : IOtpService
         var token = tokenHandler.CreateToken(tokenDescriptor);
         return tokenHandler.WriteToken(token);
     }
+
+
+
 }
