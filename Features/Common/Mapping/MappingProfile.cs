@@ -4,10 +4,15 @@ using CiberCheck.Features.Courses.Dtos;
 using CiberCheck.Features.Sections.Dtos;
 using CiberCheck.Features.Sessions.Dtos;
 using CiberCheck.Features.Attendance.Dtos;
+using CiberCheck.Features.Otps.Dtos;
 using CiberCheck.Features.Users.Entities;
 using CiberCheck.Features.Courses.Entities;
 using CiberCheck.Features.Sections.Entities;
 using CiberCheck.Features.Sessions.Entities;
+
+using OtpEntity = CiberCheck.Features.Otps.Entities.Otp;
+
+
 using AttendanceEntity = CiberCheck.Features.Attendance.Entities.Attendance;
 
 namespace CiberCheck.Features.Common.Mapping
@@ -16,10 +21,10 @@ namespace CiberCheck.Features.Common.Mapping
     {
         public MappingProfile()
         {
-            // User (tabla Users)
+            // User
             CreateMap<User, UserDto>();
             CreateMap<CreateUserDto, User>()
-                .ForMember(d => d.PasswordHash, o => o.Ignore()); // no gestionamos hashing aquí
+                .ForMember(d => d.PasswordHash, o => o.Ignore());
             CreateMap<UpdateUserDto, User>()
                 .ForAllMembers(opt => opt.Condition((src, dest, srcMember) => srcMember != null));
 
@@ -46,6 +51,12 @@ namespace CiberCheck.Features.Common.Mapping
             CreateMap<CreateAttendanceDto, AttendanceEntity>();
             CreateMap<UpdateAttendanceDto, AttendanceEntity>()
                 .ForAllMembers(opt => opt.Condition((src, dest, srcMember) => srcMember != null));
+
+            // 🔹 OTP
+            CreateMap<OtpEntity, OtpDto>();
+            CreateMap<CreateOtpDto, OtpEntity>()
+                .ForAllMembers(opt => opt.Condition((src, dest, srcMember) => srcMember != null));
+
         }
     }
 }

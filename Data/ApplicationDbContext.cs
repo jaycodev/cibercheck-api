@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using CiberCheck.Features.Attendance.Entities;
 using CiberCheck.Features.Courses.Entities;
+using CiberCheck.Features.Otps.Entities;
 using CiberCheck.Features.Sections.Entities;
 using CiberCheck.Features.Sessions.Entities;
 using CiberCheck.Features.Users.Entities;
@@ -23,6 +24,7 @@ public partial class ApplicationDbContext : DbContext
     public virtual DbSet<Attendance> Attendances { get; set; }
 
     public virtual DbSet<Course> Courses { get; set; }
+    public virtual DbSet<Otp> Otp { get; set; }
 
     public virtual DbSet<Section> Sections { get; set; }
 
@@ -69,6 +71,27 @@ public partial class ApplicationDbContext : DbContext
             entity.Property(e => e.Code).HasMaxLength(20);
             entity.Property(e => e.Name).HasMaxLength(100);
         });
+
+        modelBuilder.Entity<Otp>(entity =>
+        {
+            entity.HasKey(e => e.OtpId).HasName("PK__Otp__C8B1232A12345678");
+            entity.ToTable("Otp");
+
+            entity.Property(e => e.Email)
+                .HasMaxLength(100)
+                .IsRequired();
+
+            entity.Property(e => e.Codigo)
+                .HasMaxLength(6)
+                .IsRequired();
+
+            entity.Property(e => e.FechaCreacion)
+                .HasDefaultValueSql("GETDATE()");
+
+            entity.Property(e => e.Usado)
+                .HasDefaultValue(false);
+        });
+
 
 
         modelBuilder.Entity<Section>(entity =>

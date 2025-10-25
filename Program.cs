@@ -28,6 +28,16 @@ if (string.IsNullOrEmpty(connectionString))
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
 // AutoMapper
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
@@ -39,6 +49,7 @@ builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
 // Services / DI
 builder.Services.AddScoped<ICourseService, CourseService>();
+builder.Services.AddScoped<IOtpService, OtpService>();
 builder.Services.AddScoped<ISectionService, SectionService>();
 builder.Services.AddScoped<ISessionService, SessionService>();
 builder.Services.AddScoped<IAttendanceService, AttendanceService>();
@@ -140,6 +151,8 @@ app.UseSwaggerUI(options =>
     options.RoutePrefix = "";
     options.DocumentTitle = "CiberCheck API";
 });
+
+app.UseCors("AllowAll");
 
 app.UseHttpsRedirection();
 

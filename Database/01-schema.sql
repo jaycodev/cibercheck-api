@@ -14,6 +14,17 @@ CREATE TABLE Users (
 );
 GO
 
+CREATE TABLE OTP (
+    OtpId INT IDENTITY(1,1) PRIMARY KEY,
+    Email NVARCHAR(100) NOT NULL,
+    Codigo NVARCHAR(6) NOT NULL,
+    FechaCreacion DATETIME DEFAULT GETDATE(),
+    FechaExpiracion DATETIME NOT NULL,
+    Usado BIT DEFAULT 0
+);
+GO
+
+
 CREATE TABLE Courses (
     CourseId INT IDENTITY(1,1) PRIMARY KEY,
     Name NVARCHAR(100) NOT NULL,
@@ -66,3 +77,6 @@ CREATE TABLE Attendance (
     FOREIGN KEY (SessionId) REFERENCES Sessions(SessionId) ON DELETE CASCADE
 );
 GO
+
+
+
