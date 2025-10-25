@@ -1,4 +1,5 @@
 using CiberCheck.Data;
+using CiberCheck.Features.Sessions.Dtos;
 using CiberCheck.Features.Sessions.Entities;
 using CiberCheck.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -62,6 +63,26 @@ namespace CiberCheck.Services
                 .Where(s => s.Section.CourseId == courseId && s.SectionId == sectionId)
                 .AsNoTracking()
                 .ToListAsync();
+        }
+
+        public async Task<List<StudentDailyCourseDto>> GetStudentCoursesByDateAsync(int studentId, DateOnly? date = null)
+        {
+            var targetDate = date ?? DateOnly.FromDateTime(DateTime.UtcNow.Date);
+
+            var query = _db.Sessions
+                .AsNoTracking()
+                .Where(s => s.Date == targetDate && s.Section.Students.Any(u => u.UserId == studentId))
+                .Select(s => new StudentDailyCourseDto
+                {
+                    CourseName = s.Section.Course.Name,
+                    SectionName = s.Section.Name,
+                    StartTime = s.StartTime,
+                    EndTime = s.EndTime,
+                    Topic = s.Topic
+                })
+                .OrderBy(s => s.StartTime);
+
+            return await query.ToListAsync();
         }
     }
 }
